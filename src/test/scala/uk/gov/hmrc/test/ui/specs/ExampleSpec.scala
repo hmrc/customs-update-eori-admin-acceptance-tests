@@ -20,67 +20,23 @@ import uk.gov.hmrc.test.ui.pages.CheckYourVATHomePage.provideVATPeriod
 import uk.gov.hmrc.test.ui.pages.CheckYourVATResult.{result, useSetVATFlatRate, useUniqueVATFlatRate}
 import uk.gov.hmrc.test.ui.pages._
 import uk.gov.hmrc.test.ui.specs.tags.ZapTests
+import uk.gov.hmrc.webdriver.SingletonDriver.closeInstance
 
 class ExampleSpec extends BaseSpec {
 
-  Feature("Examples") {
+  Feature("User trying to update the EORI") {
 
-    Scenario("User is a limited cost business that pays annually and should use the 16.5% flat rate", ZapTests) {
+    Scenario("User is trying to replace the  EORI information", ZapTests) {
       //Remove ZapTests tag if not required
 
-      Given("I am on the Check your VAT flat rate service")
-      CheckYourVATHomePage.loadPage
-
-      When("I submit my VAT for goods under £1000 for the year")
-      provideVATPeriod("Annually")
-        .provideTurnoverAmount("1000")
-        .provideCostOfGoodsAmount("999")
-        .submitVATInformation
-
-      Then("I will be asked to use the 16.5% VAT flat rate")
-      result should be(useSetVATFlatRate)
+      Given("I am on EORI Login Page and enter valid information")
+      LoginPage.loadPage
+      LoginPage.loginInfo("12345", "update-enrolment-eori")
+      When("I am selecting the service management type as Replace an existing EORI number")
+      EoriServiceMgmt.eorimgmtserice("Replace")
+      And("I am entering the valid information to replace the EORI number details")
+      ReplaceEoriPage.eoriMgmtReplace("GB123456123456", "05", "01", "2023", "GB123456123789")
     }
 
-    Scenario("User is not a limited cost business that pays annually and should use the VAT flat rate") {
-      Given("I am on the Check your VAT flat rate service")
-      CheckYourVATHomePage.loadPage
-
-      When("I submit my VAT information for goods over £1000 for the year")
-      provideVATPeriod("Annually")
-        .provideTurnoverAmount("1000")
-        .provideCostOfGoodsAmount("1000")
-        .submitVATInformation
-
-      Then("I will be asked to use the VAT flat rate")
-      result should be(useUniqueVATFlatRate)
-    }
-
-    Scenario("User is a limited cost business that pays quarterly and should use the 16.5% flat rate") {
-      Given("I am on the Check your VAT flat rate service")
-      CheckYourVATHomePage.loadPage
-
-      When("I submit my VAT information for goods under £250 for the quarter")
-      provideVATPeriod("Quarterly")
-        .provideTurnoverAmount("1000")
-        .provideCostOfGoodsAmount("249")
-        .submitVATInformation
-
-      Then("I will be asked to use the 16.5% VAT flat rate")
-      result should be(useSetVATFlatRate)
-    }
-
-    Scenario("User is not a limited cost business that pays quarterly and should use the VAT flat rate") {
-      Given("I am on the Check your VAT flat rate service")
-      CheckYourVATHomePage.loadPage
-
-      When("I submit my VAT information for goods for £250 for the quarter")
-      provideVATPeriod("Quarterly")
-        .provideTurnoverAmount("1000")
-        .provideCostOfGoodsAmount("250")
-        .submitVATInformation
-
-      Then("I will be asked to use the VAT flat rate")
-      result should be(useUniqueVATFlatRate)
-    }
   }
 }
