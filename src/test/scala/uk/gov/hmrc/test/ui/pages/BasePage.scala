@@ -21,10 +21,17 @@ import org.scalatest.matchers.should.Matchers
 import uk.gov.hmrc.test.ui.driver.BrowserDriver
 
 trait BasePage extends BrowserDriver with Matchers {
-  val continueButton = "continue-button"
-
+  val continueButton     = "continue-button"
+  val continue           = "Continue"
   def submitPage(): Unit =
-    driver.findElement(By.id(continueButton)).click()
+    //driver.findElement(By.id(continueButton)).click()
+    driver.findElement(By.xpath("//button[@id='continue-button']")).click()
+
+  def ContinuePage(): Unit =
+    driver.findElement(By.xpath("//button[@class='govuk-button']")).click()
+
+  def updateEORIsubmitPage(): Unit =
+    driver.findElement(By.xpath("//button[@id='submit-button']")).click()
 
   def onPage(pageTitle: String): Unit =
     if (driver.getTitle != pageTitle)
