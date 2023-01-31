@@ -17,20 +17,34 @@
 package uk.gov.hmrc.test.ui.pages
 
 import org.openqa.selenium.By
+import org.openqa.selenium.remote.http.Contents.reader
 import org.scalatest.matchers.should.Matchers
 import uk.gov.hmrc.test.ui.driver.BrowserDriver
 
+import java.io.{BufferedReader, FileReader}
+import java.util.Properties
+
 trait BasePage extends BrowserDriver with Matchers {
-  val continueButton = "continue-button"
+  val continueButton = "//button[@class='govuk-button']"
 
   def submitPage(): Unit =
-    driver.findElement(By.id(continueButton)).click()
+    driver.findElement(By.className(continueButton)).click()
 
-  def onPage(pageTitle: String): Unit =
-    if (driver.getTitle != pageTitle)
-      throw PageNotFoundException(
-        s"Expected '$pageTitle' page, but found '${driver.getTitle}' page."
-      )
+
+  var fileppath = "/Users/deekshasrivastava/HMRC/workspace/customs-update-eori-admin-acceptance-tests/project/Config.properties"
+
+  def configReader(key: String): String = {
+    val reader = new BufferedReader(new FileReader(fileppath))
+
+    var properties = new Properties
+    properties = new Properties
+    properties.load(reader)
+    val value = properties.getProperty(key)
+    return value
+  }
+
+
+
 }
 
 case class PageNotFoundException(s: String) extends Exception(s)
