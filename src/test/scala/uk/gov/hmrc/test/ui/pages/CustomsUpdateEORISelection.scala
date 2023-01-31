@@ -20,6 +20,11 @@ import org.openqa.selenium.By
 
 object CustomsUpdateEORISelection extends BasePage {
 
+  val header = "//a[contains(text(),'EORI number management service')]"
+  val questionText = "//h1[contains(text(),'Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?')]"
+  val replaceBtnText = "//label[contains(text(),'Replace an existing EORI number')]/..//input"
+  val cancelBtnText = "//label[contains(text(),'Cancel subscriptions to HMRC services')]/..//input"
+
   def eoriSelectRadioBtn(radiobtn: String): this.type = {
 
     driver.findElement(By.xpath("//label[contains(text(),'" + radiobtn + "')]/..//input")).click()
@@ -29,32 +34,20 @@ object CustomsUpdateEORISelection extends BasePage {
 
   def verifyEORISelectionPage: this.type = {
 
-    if (driver.findElement(By.xpath("//a[contains(text(),'EORI number management service')]")).isDisplayed)
+    if (driver.findElement(By.xpath(header)).isDisplayed)
       println("The text is verified")
     else
       println("The text is wrong and can't be verified")
-    if (
-      driver
-        .findElement(
-          By.xpath(
-            "//h1[contains(text(),'Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?')]"
-          )
-        )
-        .isDisplayed
-    )
+    if (driver.findElement(By.xpath(questionText)).isDisplayed)
       println("The text is verified")
     else
       println("The text is wrong and can't be verified")
 
-    if (driver.findElement(By.xpath("//label[contains(text(),'Replace an existing EORI number')]/..//input")).isEnabled)
+    if (driver.findElement(By.xpath(replaceBtnText)).isEnabled)
       println("The text is verified")
     else
       println("The text is wrong and can't be verified")
-    if (
-      driver
-        .findElement(By.xpath("//label[contains(text(),'Cancel subscriptions to HMRC services')]/..//input"))
-        .isEnabled
-    )
+    if (driver.findElement(By.xpath(cancelBtnText)).isEnabled)
       println("The text is verified")
     else {
       println("The text is wrong and can't be verified")
