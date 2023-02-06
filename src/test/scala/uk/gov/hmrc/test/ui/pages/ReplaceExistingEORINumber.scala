@@ -20,19 +20,19 @@ import org.openqa.selenium.By
 
 object ReplaceExistingEORINumber extends BasePage {
 
-  val currentEORINumber = "//input[@id = 'existing-eori']"
-  val day               = "//input[@id = 'txtDateOfEstablishmentDay']"
-  val month             = "//input[@id = 'txtDateOfEstablishmentMonth']"
-  val year              = "//input[@id = 'txtDateOfEstablishmentYear']"
-  val newEORInumber     = "//input[@id = 'new-eori']"
+  val currentEORINumber = "existing-eori"
+  val day               = "txtDateOfEstablishmentDay"
+  val month             = "txtDateOfEstablishmentMonth"
+  val year              = "txtDateOfEstablishmentYear"
+  val newEORInumber     = "new-eori"
 
   def replaceEORI: this.type = {
 
-    driver.findElement(By.xpath(currentEORINumber)).sendKeys("GB0000020230155")
-    driver.findElement(By.xpath(day)).sendKeys("20")
-    driver.findElement(By.xpath(month)).sendKeys("04")
-    driver.findElement(By.xpath(year)).sendKeys("1992")
-    driver.findElement(By.xpath(newEORInumber)).sendKeys("GB0000020230156")
+    driver.findElement(By.id(currentEORINumber)).sendKeys("GB0000020230155")
+    driver.findElement(By.id(day)).sendKeys("20")
+    driver.findElement(By.id(month)).sendKeys("04")
+    driver.findElement(By.id(year)).sendKeys("1992")
+    driver.findElement(By.id(newEORInumber)).sendKeys("GB0000020230156")
 
     this
   }

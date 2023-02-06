@@ -22,34 +22,34 @@ import uk.gov.hmrc.test.ui.conf.TestConfiguration
 object StripeIDPLoginPage extends BasePage {
   val url: String     = TestConfiguration.url("example-frontend")
 
-  val pid = "//input[@id = 'pid']"
-  val givenName = "//input[@id='usersGivenName']"
-  val surname = "//input[@id='usersSurname']"
-  val email = "//input[@id='emailAddress']"
-  val auth_radiobtn = "//label[contains(text(),'Success')]/..//input"
-  val saml_radiobtn = "//label[contains(text(),'Valid')]/..//input"
-  val roles = "//textarea[@id='roles']"
-  val submitButton = "//button[@id='continue-button']"
+  val pid = "pid"
+  val givenName = "usersGivenName"
+  val surname = "usersSurname"
+  val email = "emailAddress"
+  val auth_radiobtn = "success"
+  val saml_radiobtn = "valid"
+  val roles = "roles"
+  val submitButton = "continue-button"
 
 
 
   def loginStub: this.type = {
-    driver.findElement(By.xpath(pid)).sendKeys(configReader("pid"))
+    driver.findElement(By.id(pid)).sendKeys(configReader("pid"))
 
 
-    driver.findElement(By.xpath(givenName)).sendKeys(configReader("givenName"))
-    driver.findElement(By.xpath(surname)).sendKeys(configReader("surname"))
-    driver.findElement(By.xpath(email)).sendKeys(configReader("email"))
-    if (driver.findElement(By.xpath(auth_radiobtn)).isSelected)
+    driver.findElement(By.id(givenName)).sendKeys(configReader("givenName"))
+    driver.findElement(By.id(surname)).sendKeys(configReader("surname"))
+    driver.findElement(By.id(email)).sendKeys(configReader("email"))
+    if (driver.findElement(By.id(auth_radiobtn)).isSelected)
       println("Success radio button is already selected")
     else
-      driver.findElement(By.xpath(auth_radiobtn)).click()
-    if (driver.findElement(By.xpath(saml_radiobtn)).isSelected)
+      driver.findElement(By.id(auth_radiobtn)).click()
+    if (driver.findElement(By.id(saml_radiobtn)).isSelected)
       println("Valid radio button is already selected")
     else
-      driver.findElement(By.xpath(saml_radiobtn)).click()
-    driver.findElement(By.xpath(roles)).sendKeys(configReader("roles"))
-    driver.findElement(By.xpath(submitButton)).click()
+      driver.findElement(By.id(saml_radiobtn)).click()
+    driver.findElement(By.id(roles)).sendKeys(configReader("roles"))
+    driver.findElement(By.id(submitButton)).click()
     this
   }
 }
