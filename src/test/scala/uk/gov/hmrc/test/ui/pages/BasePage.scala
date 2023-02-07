@@ -17,33 +17,32 @@
 package uk.gov.hmrc.test.ui.pages
 
 import org.openqa.selenium.By
-import org.openqa.selenium.remote.http.Contents.reader
 import org.scalatest.matchers.should.Matchers
+import uk.gov.hmrc.test.ui.conf.TestConfiguration
 import uk.gov.hmrc.test.ui.driver.BrowserDriver
-
-import java.io.{BufferedReader, FileReader}
-import java.util.Properties
 
 trait BasePage extends BrowserDriver with Matchers {
   val continueButton = "//button[@class='govuk-button']"
-
+  val url: String     = TestConfiguration.url("example-frontend")
   def submitPage(): Unit =
     driver.findElement(By.className(continueButton)).click()
 
+//
+//  var fileppath = "/Users/deekshasrivastava/HMRC/workspace/customs-update-eori-admin-acceptance-tests/project/Config.properties"
+//
+//  def configReader(key: String): String = {
+//    val reader = new BufferedReader(new FileReader(fileppath))
+//
+//    var properties = new Properties
+//    properties = new Properties
+//    properties.load(reader)
+//    val value = properties.getProperty(key)
+//    return value
+ // }
 
-  var fileppath = "/Users/deekshasrivastava/HMRC/workspace/customs-update-eori-admin-acceptance-tests/project/Config.properties"
-
-  def configReader(key: String): String = {
-    val reader = new BufferedReader(new FileReader(fileppath))
-
-    var properties = new Properties
-    properties = new Properties
-    properties.load(reader)
-    val value = properties.getProperty(key)
-    return value
-  }
-
-
+def invokeURL(): Unit ={
+  driver.navigate().to(url)
+}
 
 }
 

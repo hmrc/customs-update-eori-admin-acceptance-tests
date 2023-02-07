@@ -17,39 +17,56 @@
 package uk.gov.hmrc.test.ui.pages
 
 import org.openqa.selenium.By
-import uk.gov.hmrc.test.ui.conf.TestConfiguration
 
 object StripeIDPLoginPage extends BasePage {
-  val url: String     = TestConfiguration.url("example-frontend")
-
-  val pid = "pid"
-  val givenName = "usersGivenName"
-  val surname = "usersSurname"
-  val email = "emailAddress"
-  val auth_radiobtn = "success"
-  val saml_radiobtn = "valid"
-  val roles = "roles"
-  val submitButton = "continue-button"
 
 
+  val ele_pid = "pid"
+  val ele_givenName = "usersGivenName"
+  val ele_surname = "usersSurname"
+  val ele_email = "emailAddress"
+  val ele_auth_radiobtn = "success"
+  val ele_saml_radiobtn = "valid"
+  val ele_roles = "roles"
+  val ele_submitButton = "continue-button"
 
-  def loginStub: this.type = {
-    driver.findElement(By.id(pid)).sendKeys(configReader("pid"))
 
 
-    driver.findElement(By.id(givenName)).sendKeys(configReader("givenName"))
-    driver.findElement(By.id(surname)).sendKeys(configReader("surname"))
-    driver.findElement(By.id(email)).sendKeys(configReader("email"))
-    if (driver.findElement(By.id(auth_radiobtn)).isSelected)
+//  def loginStub: this.type = {
+//    driver.findElement(By.id(ele_pid)).sendKeys(configReader("pid"))
+//
+//
+//    driver.findElement(By.id(ele_givenName)).sendKeys(configReader("givenName"))
+//    driver.findElement(By.id(ele_surname)).sendKeys(configReader("surname"))
+//    driver.findElement(By.id(ele_email)).sendKeys(configReader("email"))
+//    if (driver.findElement(By.id(ele_auth_radiobtn)).isSelected)
+//      println("Success radio button is already selected")
+//    else
+//      driver.findElement(By.id(ele_auth_radiobtn)).click()
+//    if (driver.findElement(By.id(ele_saml_radiobtn)).isSelected)
+//      println("Valid radio button is already selected")
+//    else
+//      driver.findElement(By.id(ele_saml_radiobtn)).click()
+//    driver.findElement(By.id(ele_roles)).sendKeys(configReader("roles"))
+//    driver.findElement(By.id(ele_submitButton)).click()
+//    this
+//  }
+  def loginStub(pid:String,Givenname:String,Surname:String,Email:String,Roles:String): Unit ={
+    driver.findElement(By.id(ele_pid)).sendKeys(pid)
+
+
+    driver.findElement(By.id(ele_givenName)).sendKeys(Givenname)
+    driver.findElement(By.id(ele_surname)).sendKeys(Surname)
+    driver.findElement(By.id(ele_email)).sendKeys(Email)
+    if (driver.findElement(By.id(ele_auth_radiobtn)).isSelected)
       println("Success radio button is already selected")
     else
-      driver.findElement(By.id(auth_radiobtn)).click()
-    if (driver.findElement(By.id(saml_radiobtn)).isSelected)
+      driver.findElement(By.id(ele_auth_radiobtn)).click()
+    if (driver.findElement(By.id(ele_saml_radiobtn)).isSelected)
       println("Valid radio button is already selected")
     else
-      driver.findElement(By.id(saml_radiobtn)).click()
-    driver.findElement(By.id(roles)).sendKeys(configReader("roles"))
-    driver.findElement(By.id(submitButton)).click()
-    this
+      driver.findElement(By.id(ele_saml_radiobtn)).click()
+    driver.findElement(By.id(ele_roles)).sendKeys(Roles)
+    driver.findElement(By.id(ele_submitButton)).click()
   }
 }

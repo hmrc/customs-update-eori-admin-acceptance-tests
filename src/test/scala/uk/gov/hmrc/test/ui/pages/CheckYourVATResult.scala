@@ -18,35 +18,15 @@ package uk.gov.hmrc.test.ui.pages
 
 import org.openqa.selenium.By
 
+object CheckYourVATResult extends BasePage {
 
-object CommonClass extends BasePage {
-//
-//  def loadPage: this.type = {
-//    driver.navigate().to(url)
-//    //onPage(vatReturnPeriod)
-//    this
-//  }
+  val checkYourVatResult   = "Your VAT calculation - Check your VAT flat rate - GOV.UK"
+  val resultOutcome        = "resultOutcome"
+  val useSetVATFlatRate    = "You can use the 16.5% VAT flat rate"
+  val useUniqueVATFlatRate = "You can use the VAT flat rate for your business type"
 
-  def onPage(webText: String): this.type = {
-    if (driver.findElement(By.xpath("//h1 [contains(text(), '" + webText + "')]")).isDisplayed)
-      println("User is re-directed to valid page")
-    else
-      println("The page is not valid")
-    this
-  }
-
-  def clickBackLink: this.type = {
-
-    driver.findElement(By.xpath("//a[contains(text(), 'Back')]")).click()
-
-    this
-  }
-
-  def clickContinueBtn: this.type = {
-
-    driver.findElement(By.xpath("//button[contains(text(),'Continue')]")).click()
-
-    this
-  }
+  def result: String =
+    // onPage(checkYourVatResult)
+    driver.findElement(By.id(resultOutcome)).getText
 
 }

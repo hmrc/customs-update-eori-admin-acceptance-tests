@@ -14,8 +14,25 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.specs.tags
+package uk.gov.hmrc.test.ui.cucumber.runner
 
-import org.scalatest.Tag
+import io.cucumber.junit.Cucumber
+import io.cucumber.junit.CucumberOptions
+import org.junit.runner.RunWith
 
-object Wip extends Tag("Wip")
+@RunWith(classOf[Cucumber])
+@CucumberOptions(
+  features = Array("src/test/resources/features"),
+  glue = Array("uk.gov.hmrc.test.ui.cucumber.stepdefs"),
+  plugin = Array(
+    "pretty",
+    "html:target/cucumber",
+    "json:target/cucumber.json",
+    "junit:target/test-reports/Runner.xml"
+  ),
+  // tags = "@GoodsInformation"
+  // tags = "@RequiredInformationPage"
+  tags = "@EndToEndJourney"
+)
+class Runner
+object Runner extends Runner

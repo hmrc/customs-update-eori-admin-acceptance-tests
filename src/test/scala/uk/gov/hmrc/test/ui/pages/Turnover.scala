@@ -18,35 +18,16 @@ package uk.gov.hmrc.test.ui.pages
 
 import org.openqa.selenium.By
 
+object Turnover extends BasePage {
 
-object CommonClass extends BasePage {
-//
-//  def loadPage: this.type = {
-//    driver.navigate().to(url)
-//    //onPage(vatReturnPeriod)
-//    this
-//  }
+  val turnover      = "Enter your turnover - Check your VAT flat rate - GOV.UK"
+  val turnoverInput = "turnover"
 
-  def onPage(webText: String): this.type = {
-    if (driver.findElement(By.xpath("//h1 [contains(text(), '" + webText + "')]")).isDisplayed)
-      println("User is re-directed to valid page")
-    else
-      println("The page is not valid")
-    this
-  }
-
-  def clickBackLink: this.type = {
-
-    driver.findElement(By.xpath("//a[contains(text(), 'Back')]")).click()
-
-    this
-  }
-
-  def clickContinueBtn: this.type = {
-
-    driver.findElement(By.xpath("//button[contains(text(),'Continue')]")).click()
-
-    this
+  def provideTurnoverAmount(amount: String): CostOfGoods.type = {
+    // onPage(turnover)
+    driver.findElement(By.id(turnoverInput)).sendKeys(amount)
+    submitPage()
+    CostOfGoods
   }
 
 }
