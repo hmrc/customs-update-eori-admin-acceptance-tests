@@ -17,33 +17,38 @@
 package uk.gov.hmrc.test.ui.pages
 
 import org.openqa.selenium.By
-import org.openqa.selenium.remote.http.Contents.reader
 import org.scalatest.matchers.should.Matchers
 import uk.gov.hmrc.test.ui.driver.BrowserDriver
 
-import java.io.{BufferedReader, FileReader}
 import java.util.Properties
 
 trait BasePage extends BrowserDriver with Matchers {
   val continueButton = "//button[@class='govuk-button']"
+  var filepath       = "/Users/lathamageshwarimurugan/Document/EORI/customs-update-eori-admin-acceptance-tests/project/Config.properties"
+  var url            = "http: //localhost:9000/customs-update-eori-admin-frontend"
+  var pid            = "1212"
+  var givenName      = "Test"
+  var surname        = "User"
+  var email          = "latha.murugan@digital.hmrc.gov.uk"
+  var roles          = "update-enrolment-eori"
+  var currentEori    = "GB023002091028"
+  var ele_date       = "21"
+  var ele_month      = "09"
+  var ele_year       = "2001"
+  var newEori        = "GB023002091029"
 
   def submitPage(): Unit =
     driver.findElement(By.className(continueButton)).click()
 
-
-  var fileppath = "/Users/deekshasrivastava/HMRC/workspace/customs-update-eori-admin-acceptance-tests/project/Config.properties"
-
   def configReader(key: String): String = {
-    val reader = new BufferedReader(new FileReader(fileppath))
+    //   val reader = new BufferedReader(new FileReader(fileppath))
 
     var properties = new Properties
     properties = new Properties
-    properties.load(reader)
-    val value = properties.getProperty(key)
+    // properties.load(reader)
+    val value      = properties.getProperty(key)
     return value
   }
-
-
 
 }
 
