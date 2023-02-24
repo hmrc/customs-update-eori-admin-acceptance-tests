@@ -17,13 +17,11 @@
 package uk.gov.hmrc.test.ui.pages
 
 import org.openqa.selenium.By
-import uk.gov.hmrc.test.ui.pages.StripeIDPLoginPage.url
 
 object CommonClass extends BasePage {
 
   def loadPage: this.type = {
     driver.navigate().to(url)
-    //onPage(vatReturnPeriod)
     this
   }
 
@@ -34,19 +32,42 @@ object CommonClass extends BasePage {
       println("The page is not valid")
     this
   }
+  def sucessMessageValidation(oldEORI: String,newEORI:String): this.type = {
+    if (driver.findElement(By.xpath("//h2 [contains(text(), 'Success')]")).isDisplayed)
+      println("User is re-directed to valid page")
+    else
+      println("The page is not valid")
 
+    if (driver.findElement(By.xpath("//h3 [contains(text(), 'EORI number "+oldEORI+" has been replaced with "+newEORI+".')]")).isDisplayed)
+      println("User is re-directed to valid page")
+    else
+      println("The page is not valid")
+    this
+  }
   def clickBackLink: this.type = {
 
     driver.findElement(By.xpath("//a[contains(text(), 'Back')]")).click()
 
     this
   }
+  def selectRadioOption(radioOption:String): this.type = {
 
-  def clickContinueBtn: this.type = {
-
-    driver.findElement(By.xpath("//button[contains(text(),'Continue')]")).click()
-
+    radioOption match {
+      case "Cancel" => driver.findElement(By.id("update-or-cancel-eori-2")).click()
+      case _ => driver.findElement(By.id("update-or-cancel-eori")).click()
+    }
     this
   }
 
+  def clickContinueBtn: this.type = {
+
+    driver.findElement(By.className("govuk-button")).click()
+    this
+  }
+  def clickEORINumberMgntLink: this.type = {
+
+    driver.findElement(By.className("hmrc-internal-header__link")).click()
+
+    this
+  }
 }

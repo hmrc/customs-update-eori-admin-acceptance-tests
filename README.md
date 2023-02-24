@@ -131,3 +131,14 @@ sbt scalafmtAll
 ## License
 
 This code is open source software licensed under the [Apache 2.0 License]("http://www.apache.org/licenses/LICENSE-2.0.html").
+
+
+**The chromedriver setup required on local machine:**
+
+$1 download the chromedriver from https://chromedriver.chromium.org/downloads based on machine and local browser version
+
+
+$2 copy the utils.driver to local bin using command: cp /chromedriverlocation /usr/local/bin/
+
+
+$3 to view that utils.driver in local bin using command: ls -al /usr/local/bin/ | grep chrome
