@@ -18,14 +18,17 @@ package uk.gov.hmrc.test.ui.pages
 
 import org.openqa.selenium.By
 import org.scalatest.matchers.should.Matchers
+import uk.gov.hmrc.test.ui.conf.TestConfiguration
 import uk.gov.hmrc.test.ui.driver.BrowserDriver
 
 import java.util.Properties
 
 trait BasePage extends BrowserDriver with Matchers {
   val continueButton = "//button[@class='govuk-button']"
-  var filepath       = "/Users/lathamageshwarimurugan/Document/EORI/customs-update-eori-admin-acceptance-tests/project/Config.properties"
-  var url            = "http: //localhost:9000/customs-update-eori-admin-frontend"
+  var filepath       =
+    "/Users/lathamageshwarimurugan/Document/EORI/customs-update-eori-admin-acceptance-tests/project/Config.properties"
+  //var url            = "http: //localhost:9000/customs-update-eori-admin-frontend"
+  val url: String     = TestConfiguration.url("example-frontend")
   var pid            = "1212"
   var givenName      = "Test"
   var surname        = "User"

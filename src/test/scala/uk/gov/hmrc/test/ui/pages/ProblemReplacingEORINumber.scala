@@ -25,7 +25,8 @@ object ProblemReplacingEORINumber extends BasePage {
   val ATAR                             = "//ul/li[contains(text(),'Advance Tariff Registration (ATAR)')]"
   val GVMS                             = "//ul/li[contains(text(),'Goods Vehicle Movement System (GVMS)')]"
   val ReplaceorCancelsubscribtionllink = "//a[contains(text(), 'create a live service ticket on ServiceNow')]"
-  val CreateLiveServiceTicket          = "//a[contains(text(), 'Replace another EORI number or cancel subscriptions to HMRC services.')]"
+  val CreateLiveServiceTicket          =
+    "//a[contains(text(), 'Replace another EORI number or cancel subscriptions to HMRC services.')]"
 
   def verifyEoriNumberNotSubscribed: this.type = {
 

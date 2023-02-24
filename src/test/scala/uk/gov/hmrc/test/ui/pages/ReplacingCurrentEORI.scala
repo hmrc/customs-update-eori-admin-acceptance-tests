@@ -23,16 +23,16 @@ import org.openqa.selenium.By
  */
 object ReplacingCurrentEORI extends BasePage {
 
-  val ReplacingEori = "//h1[@class='govuk-heading-l']"
+  val ReplacingEori       = "//h1[@class='govuk-heading-l']"
   val CurrentlySubscribed = "//p[text()[contains(.,'currently subscribed to:')]]"
-  val ATAR = "//ul/li[@class='govuk-list govuk-list--bullet']"
-  val GVMS = "//ul/li[contains(text(),'Goods Vehicle Movement System (GVMS)')]"
-  val Question = "//h1[@class='govuk-fieldset__heading']"
-  val Yes = "//input[@id='confirm']"
-  val No = "//input[@id='confirm-2']"
-  val Yesradiobtn = "//label[contains(text(),'Yes')]/..//input"
-  val Noradiobtn = "//label[contains(text(),'No')]/..//input"
-  var confirmbtn = "//button[@class ='govuk-button']"
+  val ATAR                = "//ul/li[@class='govuk-list govuk-list--bullet']"
+  val GVMS                = "//ul/li[contains(text(),'Goods Vehicle Movement System (GVMS)')]"
+  val Question            = "//h1[@class='govuk-fieldset__heading']"
+  val Yes                 = "//input[@id='confirm']"
+  val No                  = "//input[@id='confirm-2']"
+  val Yesradiobtn         = "//label[contains(text(),'Yes')]/..//input"
+  val Noradiobtn          = "//label[contains(text(),'No')]/..//input"
+  var confirmbtn          = "//button[@class ='govuk-button']"
 
   def verifyReplacingCurrentEori: this.type = {
     driver.findElement(By.xpath(".//*[text()='Replacing EORI number']"))
@@ -48,11 +48,11 @@ object ReplacingCurrentEORI extends BasePage {
       println("The text is verified")
     else
       println("The text is wrong and can't be verified")
-      driver.findElement(By.xpath(Yes)).isDisplayed
-      driver.findElement(By.xpath(No)).isDisplayed
-      driver.findElement(By.xpath(confirmbtn)).click()
-      println("confirm button is clicked")
-      Thread.sleep(3000)
-      this
-    }
+    driver.findElement(By.xpath(Yes)).isDisplayed
+    driver.findElement(By.xpath(No)).isDisplayed
+    driver.findElement(By.xpath(confirmbtn)).click()
+    println("confirm button is clicked")
+    Thread.sleep(3000)
+    this
   }
+}

@@ -18,7 +18,7 @@ package uk.gov.hmrc.test.ui.pages
 import org.openqa.selenium.By
 object UpdatedEORISuccessMsg extends BasePage {
 
-  val successmsg = "//h1[@class='govuk-fieldset__heading']"
+  val successmsg   = "//h1[@class='govuk-fieldset__heading']"
   val replacedeori = "//h3[@class='govuk-notification-banner__heading']"
 
   def verifysuccessMsg: this.type = {
