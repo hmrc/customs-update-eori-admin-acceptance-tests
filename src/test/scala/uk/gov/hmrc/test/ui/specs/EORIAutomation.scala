@@ -22,7 +22,7 @@ import uk.gov.hmrc.test.ui.specs.tags.Wip
 class EORIAutomation extends BaseSpec {
 
   Feature("EORI Automation Scenarios") {
-val pid="1234"
+val pid="12345"
     val givenName="Automation"
     val surName="Test"
     val email="abcdef@hmrc.com"
@@ -54,11 +54,16 @@ val pid="1234"
       CommonClass.selectRadioOption("Replace")
       CommonClass.clickContinueBtn
       CommonClass.onPage("Replace an existing EORI number")
+      CommonClass.onPageLabelValidation(" What is the trader’s current EORI number?")
+      CommonClass.onPage("What date was the trader established?")
+      CommonClass.onPageLabelValidation("What is the trader’s new EORI number?")
 
       And("User Enter current and new EORI details and continue")
       ReplaceExistingEORINumber.replaceEORI(currentEORI, day, month, year, newEORI)
       CommonClass.clickContinueBtn
-      CommonClass.onPage("Are you sure you want to replace the current EORI number with " + newEORI + "?")
+      CommonClass.onPage("Replacing EORI number " + currentEORI)
+      CommonClass.onPageObjectValidation("button","Confirm Changes")
+      CommonClass.onPageObjectValidation("a","Cancel")
 
       And("User click on confirm")
       CommonClass.clickContinueBtn
