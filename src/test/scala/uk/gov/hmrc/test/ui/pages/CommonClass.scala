@@ -32,6 +32,14 @@ object CommonClass extends BasePage {
       println("The page is not valid")
     this
   }
+  def onPageLabelValidation(webText:String): Unit ={
+    if (driver.findElement(By.xpath("//label[contains(text(), '"+webText+"')]")).isDisplayed)
+      println("Text displayed - "+webText)
+  }
+  def onPageObjectValidation(objectType:String,objectText:String): Unit ={
+    if (driver.findElement(By.xpath("//"+objectType+"[contains(text(), '"+objectText+"')]")).isDisplayed)
+      println(objectType+ " displayed - "+objectText)
+  }
   def sucessMessageValidation(oldEORI: String,newEORI:String): this.type = {
     if (driver.findElement(By.xpath("//h2 [contains(text(), 'Success')]")).isDisplayed)
       println("User is re-directed to valid page")
