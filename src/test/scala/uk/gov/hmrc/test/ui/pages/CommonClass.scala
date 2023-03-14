@@ -16,11 +16,16 @@
 
 package uk.gov.hmrc.test.ui.pages
 
-import org.openqa.selenium.By
+import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.{By, WebDriver}
+import uk.gov.hmrc.webdriver.SingletonDriver
 
 object CommonClass extends BasePage {
 
   def loadPage: this.type = {
+    val options = new ChromeOptions
+    options.addArguments("--remote-allow-origins=*")
+    implicit lazy val driver: WebDriver = SingletonDriver.getInstance(Some(options))
     driver.navigate().to(url)
     this
   }
@@ -41,14 +46,16 @@ object CommonClass extends BasePage {
       println(objectType+ " displayed - "+objectText)
   }
   def sucessMessageValidation(oldEORI: String,newEORI:String): this.type = {
-    if (driver.findElement(By.xpath("//h2 [contains(text(), 'Success')]")).isDisplayed)
-      println("User is re-directed to valid page")
-    else
-      println("The page is not valid")
 
-    if (driver.findElement(By.xpath("//h3 [contains(text(), 'EORI number "+oldEORI+" has been replaced with "+newEORI+".')]")).isDisplayed)
+
+    if (driver.findElement(By.xpath("//h3[contains(text(),'EORI number "+oldEORI+" has been replaced with "+newEORI+"')]")).isDisplayed) {
       println("User is re-directed to valid page")
-    else
+      driver.findElement(By.xpath("//p[contains(text(), 'New EORI number "+newEORI+" is now subscribed to:')]")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(),'What happens next')]")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(), 'You will need to email the trader to confirm which subscriptions have been successfully updated with their new EORI number.')]")).isDisplayed
+    driver.findElement(By.xpath("//p[contains(text(),'You can get help with your email in the guidance.')]")).isDisplayed
+    driver.findElement(By.xpath("//button[contains(text(),'Start again')]")).isDisplayed
+    } else
       println("The page is not valid")
     this
   }

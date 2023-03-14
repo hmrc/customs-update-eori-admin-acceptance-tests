@@ -61,9 +61,9 @@ val pid="12345"
       And("User Enter current and new EORI details and continue")
       ReplaceExistingEORINumber.replaceEORI(currentEORI, day, month, year, newEORI)
       CommonClass.clickContinueBtn
-      CommonClass.onPage("Replacing EORI number " + currentEORI)
+      CommonClass.onPage("Review changes before replacing existing EORI number "+currentEORI+" with "+newEORI)
       CommonClass.onPageObjectValidation("button","Confirm Changes")
-      CommonClass.onPageObjectValidation("a","Cancel")
+      CommonClass.onPageObjectValidation("a","Cancel changes and start again")
 
       And("User click on confirm")
       CommonClass.clickContinueBtn
