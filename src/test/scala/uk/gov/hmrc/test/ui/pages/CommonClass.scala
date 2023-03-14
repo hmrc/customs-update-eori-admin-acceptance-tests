@@ -48,7 +48,7 @@ object CommonClass extends BasePage {
   def sucessMessageValidation(oldEORI: String,newEORI:String): this.type = {
 
 
-    if (driver.findElement(By.xpath("//h3[contains(text(),'EORI number "+oldEORI+" has been replaced with "+newEORI+"')]")).isDisplayed) {
+    if (driver.findElement(By.xpath("//h1[contains(text(),'EORI number "+oldEORI+" has been replaced with "+newEORI+"')]")).isDisplayed) {
       println("User is re-directed to valid page")
       driver.findElement(By.xpath("//p[contains(text(), 'New EORI number "+newEORI+" is now subscribed to:')]")).isDisplayed
       driver.findElement(By.xpath("//p[contains(text(),'What happens next')]")).isDisplayed
