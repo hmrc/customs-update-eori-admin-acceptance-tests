@@ -71,5 +71,40 @@ val pid="12345"
       Then("Success Message should display")
       CommonClass.sucessMessageValidation(currentEORI, newEORI)
     }
+    Scenario("Cancel EORI number", Wip) {
+      //Remove ZapTests tag if not required
+
+      Given("User launches Stride Identity Provider Login page")
+      CommonClass.clickContinueBtn
+
+      When("User enters values and logs in to the EORI Toolkit homepage")
+//      StripeIDPLoginPage.loginStub(pid,givenName,surName,email,roles)
+//      CommonClass.clickContinueBtn
+
+      And("User click on EORI number management service link")
+      CommonClass.clickEORINumberMgntLink
+      CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
+
+      And("User select Cancel radio option and click on continue")
+      CommonClass.selectRadioOption("Cancel")
+      CommonClass.clickContinueBtn
+      CommonClass.onPage("Cancel a trader’s subscriptions to HMRC services")
+      CommonClass.onPageLabelValidation("What is the trader’s current EORI number?")
+      CommonClass.onPage("What date was the trader established?")
+
+
+      And("User Enter EORI details and continue")
+      ReplaceExistingEORINumber.cancelEORI(currentEORI, day, month, year)
+      CommonClass.clickContinueBtn
+      CommonClass.onPage("Review changes before cancelling subscriptions for EORI number "+currentEORI)
+      CommonClass.onPageObjectValidation("button","Confirm Changes")
+      CommonClass.onPageObjectValidation("a","Cancel changes and start again")
+
+      And("User click on confirm")
+      CommonClass.clickContinueBtn
+
+      Then("Success Message should display")
+      CommonClass.cancelSucessMessageValidation(currentEORI)
+    }
   }
 }
