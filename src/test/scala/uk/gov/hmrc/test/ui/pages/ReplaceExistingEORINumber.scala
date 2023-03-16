@@ -40,5 +40,16 @@ object ReplaceExistingEORINumber extends BasePage {
 
     this
   }
+  def cancelEORI(currentEORI:String,day:String,month:String,year:String): this.type = {
+    driver.findElement(By.id(ele_currentEORINumber)).clear()
+    driver.findElement(By.id(ele_currentEORINumber)).sendKeys(currentEORI)
+    driver.findElement(By.id(ele_day)).clear()
+    driver.findElement(By.id(ele_day)).sendKeys(day)
+    driver.findElement(By.id(elem_month)).clear()
+    driver.findElement(By.id(elem_month)).sendKeys(month)
+    driver.findElement(By.id(elem_year)).clear()
+    driver.findElement(By.id(elem_year)).sendKeys(year)
 
+    this
+  }
 }

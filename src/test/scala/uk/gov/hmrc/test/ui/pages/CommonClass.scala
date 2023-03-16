@@ -59,6 +59,20 @@ object CommonClass extends BasePage {
       println("The page is not valid")
     this
   }
+  def cancelSucessMessageValidation(EORI: String): this.type = {
+
+
+    if (driver.findElement(By.xpath("//h1[contains(text(),'Subscriptions cancelled for "+EORI+"')]")).isDisplayed) {
+      println("User is re-directed to valid page")
+      driver.findElement(By.xpath("//p[contains(text(), 'EORI number "+EORI+" subscriptions have been successfully cancelled for:')]")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(),'What happens next')]")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(), 'You will need to email the trader confirming which EORI number "+EORI+" subscriptions have been successfully cancelled.')]")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(),'You can get help with your email in the guidance.')]")).isDisplayed
+      driver.findElement(By.xpath("//button[contains(text(),'Start again')]")).isDisplayed
+    } else
+      println("The page is not valid")
+    this
+  }
   def clickBackLink: this.type = {
 
     driver.findElement(By.xpath("//a[contains(text(), 'Back')]")).click()
