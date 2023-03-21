@@ -27,6 +27,7 @@ object CommonClass extends BasePage {
     options.addArguments("--remote-allow-origins=*")
     implicit lazy val driver: WebDriver = SingletonDriver.getInstance(Some(options))
     driver.navigate().to(url)
+    driver.manage().window().maximize()
     this
   }
 
@@ -66,7 +67,7 @@ object CommonClass extends BasePage {
       println("User is re-directed to valid page")
       driver.findElement(By.xpath("//p[contains(text(), 'EORI number "+EORI+" subscriptions have been successfully cancelled for:')]")).isDisplayed
       driver.findElement(By.xpath("//p[contains(text(),'What happens next')]")).isDisplayed
-      driver.findElement(By.xpath("//p[contains(text(), 'You will need to email the trader confirming which EORI number "+EORI+" subscriptions have been successfully cancelled.')]")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(), 'You will need to email the trader to confirm which EORI number "+EORI+" subscriptions have been successfully cancelled.')]")).isDisplayed
       driver.findElement(By.xpath("//p[contains(text(),'You can get help with your email in the guidance.')]")).isDisplayed
       driver.findElement(By.xpath("//button[contains(text(),'Start again')]")).isDisplayed
     } else
