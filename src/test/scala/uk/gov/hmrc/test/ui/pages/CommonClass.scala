@@ -100,4 +100,13 @@ object CommonClass extends BasePage {
 
     this
   }
+  def errorMessageValidation(errormsg: String): this.type = {
+
+
+    if (driver.findElement(By.xpath("//a[contains(text(),'"+errormsg+"')]")).isDisplayed) {
+      println("Error message displayed -- "+errormsg)
+      } else
+      println("The page is not valid")
+    this
+  }
 }
