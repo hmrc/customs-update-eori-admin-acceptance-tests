@@ -46,7 +46,7 @@ object CommonClass extends BasePage {
     if (driver.findElement(By.xpath("//"+objectType+"[contains(text(), '"+objectText+"')]")).isDisplayed)
       println(objectType+ " displayed - "+objectText)
   }
-  def sucessMessageValidation(oldEORI: String,newEORI:String): this.type = {
+  def successMessageValidation(oldEORI: String,newEORI:String): this.type = {
 
 
     if (driver.findElement(By.xpath("//h1[contains(text(),'EORI number "+oldEORI+" has been replaced with "+newEORI+"')]")).isDisplayed) {
@@ -77,6 +77,7 @@ object CommonClass extends BasePage {
   def clickBackLink: this.type = {
 
     driver.findElement(By.xpath("//a[contains(text(), 'Back')]")).click()
+    Thread.sleep(1000)
 
     this
   }
@@ -84,7 +85,9 @@ object CommonClass extends BasePage {
 
     radioOption match {
       case "Cancel" => driver.findElement(By.id("update-or-cancel-eori-2")).click()
+        Thread.sleep(1000)
       case _ => driver.findElement(By.id("update-or-cancel-eori")).click()
+        Thread.sleep(1000)
     }
     this
   }
@@ -92,11 +95,13 @@ object CommonClass extends BasePage {
   def clickContinueBtn: this.type = {
 
     driver.findElement(By.className("govuk-button")).click()
+    Thread.sleep(2000)
     this
   }
   def clickEORINumberMgntLink: this.type = {
 
     driver.findElement(By.className("hmrc-internal-header__link")).click()
+    Thread.sleep(2000)
 
     this
   }
@@ -105,6 +110,7 @@ object CommonClass extends BasePage {
 
     if (driver.findElement(By.xpath("//a[contains(text(),'"+errormsg+"')]")).isDisplayed) {
       println("Error message displayed -- "+errormsg)
+      Thread.sleep(1000)
       } else
       println("The page is not valid")
     this

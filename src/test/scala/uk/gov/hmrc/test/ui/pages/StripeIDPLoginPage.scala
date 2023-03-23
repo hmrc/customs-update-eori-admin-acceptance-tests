@@ -29,26 +29,33 @@ object StripeIDPLoginPage extends BasePage {
   val ele_saml_radiobtn = "//label[contains(text(),'Valid')]/..//input"
   val ele_roles         = "roles"
 
-  def loginStub(pid:String,givenName:String,surName:String,email:String,roles:String): this.type = {
+  def loginStub(pid:String,givenName:String,surname:String,email:String,roles:String): this.type = {
     driver.findElement(By.id(ele_pid)).clear()
     driver.findElement(By.id(ele_pid)).sendKeys(pid)
+    Thread.sleep(1000)
     driver.findElement(By.id(ele_givenName)).clear()
     driver.findElement(By.id(ele_givenName)).sendKeys(givenName)
+    Thread.sleep(1000)
     driver.findElement(By.id(ele_surname)).clear()
     driver.findElement(By.id(ele_surname)).sendKeys(surname)
+    Thread.sleep(1000)
     driver.findElement(By.id(ele_email)).clear()
     driver.findElement(By.id(ele_email)).sendKeys(email)
+    Thread.sleep(1000)
     if (driver.findElement(By.xpath(ele_auth_radiobtn)).isSelected)
       println("Success radio button is already selected")
     else
       driver.findElement(By.xpath(ele_auth_radiobtn)).click()
+    Thread.sleep(1000)
     if (driver.findElement(By.xpath(ele_saml_radiobtn)).isSelected)
       println("Valid radio button is already selected")
     else
       driver.findElement(By.xpath(ele_saml_radiobtn)).click()
+    Thread.sleep(1000)
 
     driver.findElement(By.id(ele_roles)).clear()
     driver.findElement(By.id(ele_roles)).sendKeys(roles)
+    Thread.sleep(1000)
     this
   }
 }
