@@ -27,18 +27,8 @@ trait BasePage extends BrowserDriver with Matchers {
   val continueButton = "//button[@class='govuk-button']"
   var filepath       =
     "/Users/lathamageshwarimurugan/Document/EORI/customs-update-eori-admin-acceptance-tests/project/Config.properties"
-  //var url            = "http: //localhost:9000/customs-update-eori-admin-frontend"
-  val url: String     = TestConfiguration.url("example-frontend")
-  var pid            = "1212"
-  var givenName      = "Test"
-  var surname        = "User"
-  var email          = "latha.murugan@digital.hmrc.gov.uk"
-  var roles          = "update-enrolment-eori"
-  var currentEori    = "GB023002091028"
-  var ele_date       = "21"
-  var ele_month      = "09"
-  var ele_year       = "2001"
-  var newEori        = "GB023002091029"
+  var url            = "https://admin.qa.tax.service.gov.uk/customs-update-eori-admin-frontend"
+  //val url: String     = TestConfiguration.url("example-frontend")
 
   def submitPage(): Unit =
     driver.findElement(By.className(continueButton)).click()
