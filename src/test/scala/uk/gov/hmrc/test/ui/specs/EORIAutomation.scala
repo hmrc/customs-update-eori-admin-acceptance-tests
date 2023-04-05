@@ -20,14 +20,14 @@ import uk.gov.hmrc.test.ui.pages._
 import uk.gov.hmrc.test.ui.specs.tags.Wip
 
 class EORIAutomation extends BaseSpec {
-//---------------------------------Test Data----------------------------------//
+  //---------------------------------Test Data----------------------------------//
 
   //---------Auth Login Details----------//
-  val pid="12345"
-  val givenName="Automation"
-  val surName="Test"
-  val email="abcdef@hmrc.com"
-  val roles="update-enrolment-eori"
+  val pid = "12345"
+  val givenName = "Automation"
+  val surName = "Test"
+  val email = "abcdef@hmrc.com"
+  val roles = "update-enrolment-eori"
 
   //----------Replace EORI details-----------//
 
@@ -48,18 +48,18 @@ class EORIAutomation extends BaseSpec {
 
     Scenario("Replace EORI number Error Message validation - Without entering details", Wip) {
 
-         Given("User launches Stride Identity Provider Login page")
-        CommonClass.loadPage
+      Given("User launches Stride Identity Provider Login page")
+      CommonClass.loadPage
 
-         When("User enters values and logs in to the EORI Toolkit homepage")
-        StripeIDPLoginPage.loginStub(pid,givenName,surName,email,roles)
-        CommonClass.clickContinueBtn
+      When("User enters values and logs in to the EORI Toolkit homepage")
+      StripeIDPLoginPage.loginStub(pid, givenName, surName, email, roles)
+      CommonClass.clickContinueBtn
       CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
       When("User select Replace radio option and click on continue")
       CommonClass.selectRadioOption("Replace")
       CommonClass.clickContinueBtn
       And("User Enter EORI details and continue")
-      ReplaceExistingEORINumber.replaceEORI("", "", "", "","")
+      ReplaceExistingEORINumber.replaceEORI("", "", "", "", "")
       CommonClass.clickContinueBtn
       Then("Error Message should display")
       CommonClass.errorMessageValidation("Enter the trader’s current EORI number")
@@ -75,13 +75,14 @@ class EORIAutomation extends BaseSpec {
       CommonClass.selectRadioOption("Replace")
       CommonClass.clickContinueBtn
       And("User Enter EORI details and continue")
-      ReplaceExistingEORINumber.replaceEORI(currentEORI, "01", "01", "2000",newEORI)
+      ReplaceExistingEORINumber.replaceEORI(currentEORI, "01", "01", "2000", newEORI)
       CommonClass.clickContinueBtn
       Then("Error Message should display")
       CommonClass.errorMessageValidation("The trader’s establishment date must match establishment date of the current EORI number")
 
     }
-    Scenario("Cancel EORI number Error Message validation", Wip) {When("User click on EORI number management service link")
+    Scenario("Cancel EORI number Error Message validation", Wip) {
+      When("User click on EORI number management service link")
       Given("User click on EORI number management service link")
       CommonClass.clickEORINumberMgntLink
       CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
@@ -113,12 +114,12 @@ class EORIAutomation extends BaseSpec {
     Scenario("Replace EORI number", Wip) {
       //Remove ZapTests tag if not required
 
-   //   Given("User launches Stride Identity Provider Login page")
-    //  CommonClass.loadPage
+      //   Given("User launches Stride Identity Provider Login page")
+      //  CommonClass.loadPage
 
-   //   When("User enters values and logs in to the EORI Toolkit homepage")
-    //  StripeIDPLoginPage.loginStub(pid,givenName,surName,email,roles)
-    // CommonClass.clickContinueBtn
+      //   When("User enters values and logs in to the EORI Toolkit homepage")
+      //  StripeIDPLoginPage.loginStub(pid,givenName,surName,email,roles)
+      // CommonClass.clickContinueBtn
 
       Given("User click on EORI number management service link")
       CommonClass.clickEORINumberMgntLink
@@ -135,9 +136,9 @@ class EORIAutomation extends BaseSpec {
       And("User Enter current and new EORI details and continue")
       ReplaceExistingEORINumber.replaceEORI(currentEORI, replaceEORI_day, replaceEORI_month, replaceEORI_year, newEORI)
       CommonClass.clickContinueBtn
-      CommonClass.onPage("Review changes before replacing existing EORI number "+currentEORI+" with "+newEORI)
-      CommonClass.onPageObjectValidation("button","Confirm Changes")
-      CommonClass.onPageObjectValidation("a","Cancel changes and start again")
+      CommonClass.onPage("Review changes before replacing existing EORI number " + currentEORI + " with " + newEORI)
+      CommonClass.onPageObjectValidation("button", "Confirm Changes")
+      CommonClass.onPageObjectValidation("a", "Cancel changes and start again")
 
       And("User click on confirm")
       CommonClass.clickContinueBtn
@@ -168,9 +169,9 @@ class EORIAutomation extends BaseSpec {
       And("User Enter EORI details and continue")
       ReplaceExistingEORINumber.cancelEORI(currentEORI, cancelEORI_day, cancelEORI_month, cancelEORI_year)
       CommonClass.clickContinueBtn
-      CommonClass.onPage("Review changes before cancelling subscriptions for EORI number "+currentEORI)
-      CommonClass.onPageObjectValidation("button","Confirm Changes")
-      CommonClass.onPageObjectValidation("a","Cancel changes and start again")
+      CommonClass.onPage("Review changes before cancelling subscriptions for EORI number " + currentEORI)
+      CommonClass.onPageObjectValidation("button", "Confirm Changes")
+      CommonClass.onPageObjectValidation("a", "Cancel changes and start again")
 
       And("User click on confirm")
       CommonClass.clickContinueBtn
