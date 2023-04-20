@@ -32,14 +32,14 @@ class EORIAutomation extends BaseSpec {
 
   //----------Replace EORI details-----------//
 
-  val currentEORI = "GB000020231544"
+  val currentEORI = "GB000020231402"
   val replaceEORI_day = "03"
   val replaceEORI_month = "12"
   val replaceEORI_year = "2000"
-  val newEORI = "GB000020231545"
+  val newEORI = "GB000020231403"
 
   //------------Cancel EORI------------------//
-  val cancelEORI = "GB000020231545"
+  val cancelEORI = "GB000020231403"
   val cancelEORI_day = "03"
   val cancelEORI_month = "12"
   val cancelEORI_year = "2000"
