@@ -16,14 +16,18 @@
 
 package uk.gov.hmrc.test.ui.pages
 
-import org.openqa.selenium.By
-import uk.gov.hmrc.test.ui.pages.StripeIDPLoginPage.url
+import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.{By, WebDriver}
+import uk.gov.hmrc.webdriver.SingletonDriver
 
 object CommonClass extends BasePage {
 
   def loadPage: this.type = {
+    val options = new ChromeOptions
+    options.addArguments("--remote-allow-origins=*")
+    implicit lazy val driver: WebDriver = SingletonDriver.getInstance(Some(options))
     driver.navigate().to(url)
-    //onPage(vatReturnPeriod)
+    driver.manage().window().maximize()
     this
   }
 
@@ -34,19 +38,81 @@ object CommonClass extends BasePage {
       println("The page is not valid")
     this
   }
+  def onPageLabelValidation(webText:String): Unit ={
+    if (driver.findElement(By.xpath("//label[contains(text(), '"+webText+"')]")).isDisplayed)
+      println("Text displayed - "+webText)
+  }
+  def onPageObjectValidation(objectType:String,objectText:String): Unit ={
+    if (driver.findElement(By.xpath("//"+objectType+"[contains(text(), '"+objectText+"')]")).isDisplayed)
+      println(objectType+ " displayed - "+objectText)
+  }
+  def successMessageValidation(oldEORI: String,newEORI:String): this.type = {
 
+
+    if (driver.findElement(By.xpath("//h1[contains(text(),'EORI number "+oldEORI+" has been replaced with "+newEORI+"')]")).isDisplayed) {
+      println("User is re-directed to valid page")
+      driver.findElement(By.xpath("//p[contains(text(), 'New EORI number "+newEORI+" is now subscribed to:')]")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(),'What happens next')]")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(), 'You will need to email the trader to confirm which subscriptions have been successfully updated with their new EORI number.')]")).isDisplayed
+    driver.findElement(By.xpath("//p[contains(text(),'You can get help with your email in the guidance.')]")).isDisplayed
+    driver.findElement(By.xpath("//button[contains(text(),'Start again')]")).isDisplayed
+    } else
+      println("The page is not valid")
+    this
+  }
+  def cancelSucessMessageValidation(EORI: String): this.type = {
+
+
+    if (driver.findElement(By.xpath("//h1[contains(text(),'Subscriptions cancelled for "+EORI+"')]")).isDisplayed) {
+      println("User is re-directed to valid page")
+      driver.findElement(By.xpath("//p[contains(text(), 'EORI number "+EORI+" subscriptions have been successfully cancelled for:')]")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(),'What happens next')]")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(), 'You will need to email the trader to confirm which EORI number "+EORI+" subscriptions have been successfully cancelled.')]")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(),'You can get help with your email in the guidance.')]")).isDisplayed
+      driver.findElement(By.xpath("//button[contains(text(),'Start again')]")).isDisplayed
+    } else
+      println("The page is not valid")
+    this
+  }
   def clickBackLink: this.type = {
 
     driver.findElement(By.xpath("//a[contains(text(), 'Back')]")).click()
+    Thread.sleep(1000)
 
+    this
+  }
+  def selectRadioOption(radioOption:String): this.type = {
+
+    radioOption match {
+      case "Cancel" => driver.findElement(By.id("update-or-cancel-eori-2")).click()
+        Thread.sleep(1000)
+      case _ => driver.findElement(By.id("update-or-cancel-eori")).click()
+        Thread.sleep(1000)
+    }
     this
   }
 
   def clickContinueBtn: this.type = {
 
-    driver.findElement(By.xpath("//button[contains(text(),'Continue')]")).click()
+    driver.findElement(By.className("govuk-button")).click()
+    Thread.sleep(2000)
+    this
+  }
+  def clickEORINumberMgntLink: this.type = {
+
+    driver.findElement(By.className("hmrc-internal-header__link")).click()
+    Thread.sleep(2000)
 
     this
   }
+  def errorMessageValidation(errormsg: String): this.type = {
 
+
+    if (driver.findElement(By.xpath("//a[contains(text(),'"+errormsg+"')]")).isDisplayed) {
+      println("Error message displayed -- "+errormsg)
+      Thread.sleep(1000)
+      } else
+      println("The page is not valid")
+    this
+  }
 }

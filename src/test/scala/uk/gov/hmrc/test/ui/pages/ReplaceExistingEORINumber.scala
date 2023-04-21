@@ -20,21 +20,45 @@ import org.openqa.selenium.By
 
 object ReplaceExistingEORINumber extends BasePage {
 
-  val currentEORINumber = "//input[@id = 'existing-eori']"
-  val day               = "//input[@id = 'txtDateOfEstablishmentDay']"
-  val month             = "//input[@id = 'txtDateOfEstablishmentMonth']"
-  val year              = "//input[@id = 'txtDateOfEstablishmentYear']"
-  val newEORInumber     = "//input[@id = 'new-eori']"
+  val ele_currentEORINumber = "existing-eori"
+  val ele_day               = "txtDateOfEstablishmentDay"
+  val elem_month             = "txtDateOfEstablishmentMonth"
+  val elem_year              = "txtDateOfEstablishmentYear"
+  val ele_newEORInumber     = "new-eori"
 
-  def replaceEORI: this.type = {
-
-    driver.findElement(By.xpath(currentEORINumber)).sendKeys("GB0000020230155")
-    driver.findElement(By.xpath(day)).sendKeys("20")
-    driver.findElement(By.xpath(month)).sendKeys("04")
-    driver.findElement(By.xpath(year)).sendKeys("1992")
-    driver.findElement(By.xpath(newEORInumber)).sendKeys("GB0000020230156")
+  def replaceEORI(currentEORI:String,day:String,month:String,year:String,newEORI:String): this.type = {
+    driver.findElement(By.id(ele_currentEORINumber)).clear()
+    driver.findElement(By.id(ele_currentEORINumber)).sendKeys(currentEORI)
+    Thread.sleep(1000)
+    driver.findElement(By.id(ele_day)).clear()
+    driver.findElement(By.id(ele_day)).sendKeys(day)
+    Thread.sleep(1000)
+    driver.findElement(By.id(elem_month)).clear()
+    driver.findElement(By.id(elem_month)).sendKeys(month)
+    Thread.sleep(1000)
+    driver.findElement(By.id(elem_year)).clear()
+    driver.findElement(By.id(elem_year)).sendKeys(year)
+    Thread.sleep(1000)
+    driver.findElement(By.id(ele_newEORInumber)).clear()
+    driver.findElement(By.id(ele_newEORInumber)).sendKeys(newEORI)
+    Thread.sleep(1000)
 
     this
   }
+  def cancelEORI(currentEORI:String,day:String,month:String,year:String): this.type = {
+    driver.findElement(By.id(ele_currentEORINumber)).clear()
+    driver.findElement(By.id(ele_currentEORINumber)).sendKeys(currentEORI)
+    Thread.sleep(1000)
+    driver.findElement(By.id(ele_day)).clear()
+    driver.findElement(By.id(ele_day)).sendKeys(day)
+    Thread.sleep(1000)
+    driver.findElement(By.id(elem_month)).clear()
+    driver.findElement(By.id(elem_month)).sendKeys(month)
+    Thread.sleep(1000)
+    driver.findElement(By.id(elem_year)).clear()
+    driver.findElement(By.id(elem_year)).sendKeys(year)
+    Thread.sleep(1000)
 
+    this
+  }
 }

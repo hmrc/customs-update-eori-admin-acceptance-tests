@@ -17,39 +17,45 @@
 package uk.gov.hmrc.test.ui.pages
 
 import org.openqa.selenium.By
-import uk.gov.hmrc.test.ui.conf.TestConfiguration
 
 object StripeIDPLoginPage extends BasePage {
-  val url: String     = TestConfiguration.url("example-frontend")
+  //val url: String     = TestConfiguration.url("example-frontend")
 
-  val pid = "//input[@id = 'pid']"
-  val givenName = "//input[@id='usersGivenName']"
-  val surname = "//input[@id='usersSurname']"
-  val email = "//input[@id='emailAddress']"
-  val auth_radiobtn = "//label[contains(text(),'Success')]/..//input"
-  val saml_radiobtn = "//label[contains(text(),'Valid')]/..//input"
-  val roles = "//textarea[@id='roles']"
-  val submitButton = "//button[@id='continue-button']"
+  val ele_pid           = "pid"
+  val ele_givenName     = "usersGivenName"
+  val ele_surname       = "usersSurname"
+  val ele_email         = "emailAddress"
+  val ele_auth_radiobtn = "//label[contains(text(),'Success')]/..//input"
+  val ele_saml_radiobtn = "//label[contains(text(),'Valid')]/..//input"
+  val ele_roles         = "roles"
 
-
-
-  def loginStub: this.type = {
-    driver.findElement(By.xpath(pid)).sendKeys(configReader("pid"))
-
-
-    driver.findElement(By.xpath(givenName)).sendKeys(configReader("givenName"))
-    driver.findElement(By.xpath(surname)).sendKeys(configReader("surname"))
-    driver.findElement(By.xpath(email)).sendKeys(configReader("email"))
-    if (driver.findElement(By.xpath(auth_radiobtn)).isSelected)
+  def loginStub(pid:String,givenName:String,surname:String,email:String,roles:String): this.type = {
+    driver.findElement(By.id(ele_pid)).clear()
+    driver.findElement(By.id(ele_pid)).sendKeys(pid)
+    Thread.sleep(1000)
+    driver.findElement(By.id(ele_givenName)).clear()
+    driver.findElement(By.id(ele_givenName)).sendKeys(givenName)
+    Thread.sleep(1000)
+    driver.findElement(By.id(ele_surname)).clear()
+    driver.findElement(By.id(ele_surname)).sendKeys(surname)
+    Thread.sleep(1000)
+    driver.findElement(By.id(ele_email)).clear()
+    driver.findElement(By.id(ele_email)).sendKeys(email)
+    Thread.sleep(1000)
+    if (driver.findElement(By.xpath(ele_auth_radiobtn)).isSelected)
       println("Success radio button is already selected")
     else
-      driver.findElement(By.xpath(auth_radiobtn)).click()
-    if (driver.findElement(By.xpath(saml_radiobtn)).isSelected)
+      driver.findElement(By.xpath(ele_auth_radiobtn)).click()
+    Thread.sleep(1000)
+    if (driver.findElement(By.xpath(ele_saml_radiobtn)).isSelected)
       println("Valid radio button is already selected")
     else
-      driver.findElement(By.xpath(saml_radiobtn)).click()
-    driver.findElement(By.xpath(roles)).sendKeys(configReader("roles"))
-    driver.findElement(By.xpath(submitButton)).click()
+      driver.findElement(By.xpath(ele_saml_radiobtn)).click()
+    Thread.sleep(1000)
+
+    driver.findElement(By.id(ele_roles)).clear()
+    driver.findElement(By.id(ele_roles)).sendKeys(roles)
+    Thread.sleep(1000)
     this
   }
 }
