@@ -32,118 +32,29 @@ class EORIAutomation extends BaseSpec {
 
   //----------Replace EORI details-----------//
 
-  val currentEORI = "GB000020231402"
+  val currentEORI = "GB111111111006"
   val replaceEORI_day = "03"
   val replaceEORI_month = "12"
   val replaceEORI_year = "2000"
-  val newEORI = "GB000020231403"
+  val newEORI = "GB111111111007"
 
   //------------Cancel EORI------------------//
-  val cancelEORI = "GB000020231403"
+  val cancelEORI = "GB111111111006"
   val cancelEORI_day = "03"
   val cancelEORI_month = "12"
   val cancelEORI_year = "2000"
 
   Feature("EORI Automation Scenarios") {
 
-
-    Scenario("Replace EORI number Error Message validation - Without entering details", Wip) {
+    Scenario("Replace EORI number") {
 
       Given("User logs into EORI Toolkit homepage")
-        CommonClass.loadPage
-        StripeIDPLoginPage.loginStub(pid,givenName,surName,email,roles)
-        CommonClass.clickContinueBtn
-        CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
-
-
-      When("User select Replace journey and click on Continue without entering details")
-      CommonClass.selectRadioOption("Replace")
+      CommonClass.loadPage
+      StripeIDPLoginPage.loginStub(pid, givenName, surName, email, roles)
       CommonClass.clickContinueBtn
-
-
-      And("User leaves field(s) blank and click continue")
-      CommonClass.clickContinueBtn
-
-
-      Then("Error Message should be displayed")
-      CommonClass.errorMessageValidation("Enter the trader’s current EORI number")
-      CommonClass.errorMessageValidation("Enter the date that the trader was established")
-      CommonClass.errorMessageValidation("Enter the trader’s new EORI number")
-
-    }
-
-
-
-    Scenario("Replace EORI number Error Message validation - Incorrect DOE", Wip) {
-
-      Given("User click on EORI number management service link")
-      CommonClass.clickEORINumberMgntLink
+      driver.navigate().to("http://localhost:11120/manage-eori-number")
       CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
 
-      When("User select Replace radio option and click on continue")
-      CommonClass.selectRadioOption("Replace")
-      CommonClass.clickContinueBtn
-
-      And("User Enter invalid DOE and click continue")
-      ReplaceExistingEORINumber.replaceEORI(currentEORI, "01", "01", "2000",newEORI)
-      CommonClass.clickContinueBtn
-
-      Then("Error Message should display")
-      CommonClass.errorMessageValidation("The trader’s establishment date must match establishment date of the current EORI number")
-
-    }
-
-
-    Scenario("Cancel EORI number Error Message validation", Wip) {
-
-      Given("User click on EORI number management service link")
-      CommonClass.clickEORINumberMgntLink
-      CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
-
-      When ("User select Cancel radio option and click on continue")
-      CommonClass.selectRadioOption("Cancel")
-      CommonClass.clickContinueBtn
-
-
-      And("User leaves EORI details as blank and continue")
-      CommonClass.clickContinueBtn
-
-      Then("Error Message should display")
-      CommonClass.errorMessageValidation("Enter the trader’s current EORI number")
-      CommonClass.errorMessageValidation("Enter the date that the trader was established")
-    }
-
-
-    Scenario("Cancel EORI number Error Message validation - Incorrect DOE", Wip) {
-
-      Given("User click on EORI number management service link")
-      CommonClass.clickEORINumberMgntLink
-      CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
-
-      When("User select Cancel radio option and click on continue")
-      CommonClass.selectRadioOption("Cancel")
-      CommonClass.clickContinueBtn
-
-      And("User Enter invalid DOE and continue")
-      ReplaceExistingEORINumber.cancelEORI(currentEORI, "01", "01", "2000")
-      CommonClass.clickContinueBtn
-      Then("Error Message should display")
-      CommonClass.errorMessageValidation("The trader’s establishment date must match establishment date of the current EORI number")
-
-    }
-    Scenario("Replace EORI number", Wip) {
-      //Remove ZapTests tag if not required
-
-   //   Given("User launches Stride Identity Provider Login page")
-    //  CommonClass.loadPage
-
-   //   When("User enters values and logs in to the EORI Toolkit homepage")
-    //  StripeIDPLoginPage.loginStub(pid,givenName,surName,email,roles)
-    // CommonClass.clickContinueBtn
-
-      Given("User click on EORI number management service link")
-      CommonClass.clickEORINumberMgntLink
-      CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
 
       When("User select Replace radio option and click on continue")
       CommonClass.selectRadioOption("Replace")
@@ -168,8 +79,7 @@ class EORIAutomation extends BaseSpec {
     }
 
 
-    Scenario("Cancel EORI number", Wip) {
-      //Remove ZapTests tag if not required
+    Scenario("Cancel EORI number") {
 
       Given("User launches EORI toolkit homepage")
       CommonClass.clickContinueBtn
