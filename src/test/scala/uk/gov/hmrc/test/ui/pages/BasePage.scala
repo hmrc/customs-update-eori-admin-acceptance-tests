@@ -27,18 +27,16 @@ trait BasePage extends BrowserDriver with Matchers {
   val continueButton = "//button[@class='govuk-button']"
   var filepath       =
     "/Users/lathamageshwarimurugan/Document/EORI/customs-update-eori-admin-acceptance-tests/project/Config.properties"
-  var url            = "https://admin.qa.tax.service.gov.uk/manage-eori-number"
-  //val url: String     = TestConfiguration.url("example-frontend")
+  //var url            = "https://admin.qa.tax.service.gov.uk/manage-eori-number"
+  val url: String     = TestConfiguration.url("local-frontend")
 
   def submitPage(): Unit =
     driver.findElement(By.className(continueButton)).click()
 
   def configReader(key: String): String = {
-    //   val reader = new BufferedReader(new FileReader(fileppath))
 
     var properties = new Properties
     properties = new Properties
-    // properties.load(reader)
     val value      = properties.getProperty(key)
     return value
   }

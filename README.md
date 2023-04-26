@@ -1,25 +1,41 @@
-**This is a template README.md.  Be sure to update this with project specific content that describes your ui test project.**
+
 
 # customs-update-eori-admin-acceptance-tests
 UI test suite for the `<digital service name>` using WebDriver and `<scalatest/cucumber>`.  
 
-## Running the tests
+## Running the tests in local
 
-Prior to executing the tests ensure you have:
- - Docker - to run mongo and browser (Chrome, Firefox or Edge) inside a container 
- - Appropriate [drivers installed](#installing-local-driver-binaries) - to run tests against locally installed Browser
- - Installed/configured [service manager](https://github.com/hmrc/service-manager).  
+Prior to executing the tests in local,ensure you have:
 
-Run the following command to start services locally:
+Make sure you have a Postman.
+Make sure you have docker up and running
+Make sure you have mongoDb up and running (with docker will be easy)
+Make sure you have pulled the latest service-manager-config in local.
 
-    docker run --rm -d --name mongo -d -p 27017:27017 mongo:4.0
-    sm --start PLATFORM_EXAMPLE_UI_TESTS -r --wait 100
+-Start the supporting services using this command:
+  sm --start CUSTOMS_UPDATE_EORI_ADMIN_FRONTEND_ALL -r
 
-Using the `--wait 100` argument ensures a health check is run on all the services started as part of the profile. `100` refers to the given number of seconds to wait for services to pass health checks.
+-On how to create the data in Postman and then use in the code here, please follow this confluence page:
+  https://confluence.tools.tax.service.gov.uk/pages/viewpage.action?pageId=653001067
 
 Then execute the `run_tests.sh` script:
 
-    ./run_tests.sh <browser-driver> <environment> 
+    ./run_tests.sh 
+
+## Running the tests in QA
+
+Prior to executing the tests in QA,ensure you have:
+
+Make sure you have changed the url to QA environment: https://admin.qa.tax.service.gov.uk/manage-eori-number
+EORI number should be created in QA. Confluence link on how to create data in QA:
+  https://confluence.tools.tax.service.gov.uk/display/ET/Test+Execution+in+QA
+
+Then execute the `run_tests.sh` script:
+
+    ./run_tests.sh 
+
+
+
 
 The `run_tests.sh` script defaults to using `chrome` in the `local` environment.  For a complete list of supported param values, see:
  - `src/test/resources/application.conf` for **environment** 
