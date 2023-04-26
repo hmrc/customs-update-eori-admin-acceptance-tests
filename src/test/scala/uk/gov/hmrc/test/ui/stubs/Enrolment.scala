@@ -14,19 +14,6 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.pages
+package uk.gov.hmrc.test.ui.stubs
 
-import org.openqa.selenium.By
-import org.scalatest.matchers.should.Matchers
-import uk.gov.hmrc.test.ui.conf.TestConfiguration
-import uk.gov.hmrc.test.ui.driver.BrowserDriver
-
-trait BasePage extends BrowserDriver with Matchers {
-  val continueButton = "//button[@class='govuk-button']"
-  val url: String = TestConfiguration.url("customs-update-eori-admin-frontend")
-
-  def submitPage(): Unit =
-    driver.findElement(By.className(continueButton)).click()
-}
-
-case class PageNotFoundException(s: String) extends Exception(s)
+case class Enrolment(key: String, eoriNumber: String)
