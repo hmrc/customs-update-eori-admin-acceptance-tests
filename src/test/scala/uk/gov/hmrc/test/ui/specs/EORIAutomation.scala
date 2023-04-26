@@ -16,33 +16,32 @@
 
 package uk.gov.hmrc.test.ui.specs
 
-import org.openqa.selenium.remote.RemoteWebDriver
 import uk.gov.hmrc.test.ui.pages._
-import uk.gov.hmrc.test.ui.specs.tags.Wip
+import uk.gov.hmrc.test.ui.stubs.{Enrolment, EnrolmentStoreProxyStub}
 
 class EORIAutomation extends BaseSpec {
-//---------------------------------Test Data----------------------------------//
 
   //---------Auth Login Details----------//
-  val pid="12345"
-  val givenName="Automation"
-  val surName="Test"
-  val email="abcdef@hmrc.com"
-  val roles="update-enrolment-eori"
+  val pid = "12345"
+  val givenName = "Automation"
+  val surName = "Test"
+  val email = "abcdef@hmrc.com"
+  val roles = "update-enrolment-eori"
 
-  //----------Replace EORI details-----------//
+  //----------EORI Establishment Details-----------//
+  val establishmentDay = "03"
+  val establishmentMonth = "12"
+  val establishmentYear = "2000"
 
-  val currentEORI = "GB111111111006"
-  val replaceEORI_day = "03"
-  val replaceEORI_month = "12"
-  val replaceEORI_year = "2000"
-  val newEORI = "GB111111111007"
+  override def beforeAll() {
+    CommonClass.loadPage
+    StripeIDPLoginPage.loginStub(pid, givenName, surName, email, roles)
+    CommonClass.clickContinueBtn
+  }
 
-  //------------Cancel EORI------------------//
-  val cancelEORI = "GB111111111006"
-  val cancelEORI_day = "03"
-  val cancelEORI_month = "12"
-  val cancelEORI_year = "2000"
+  override def afterAll() {
+    EnrolmentStoreProxyStub.cleanStubData()
+  }
 
   Feature("EORI Automation Scenarios") {
 
@@ -50,11 +49,13 @@ class EORIAutomation extends BaseSpec {
 
       Given("User logs into EORI Toolkit homepage")
       CommonClass.loadPage
-      StripeIDPLoginPage.loginStub(pid, givenName, surName, email, roles)
-      CommonClass.clickContinueBtn
-      driver.navigate().to("http://localhost:11120/manage-eori-number")
       CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
 
+      And("User has a EORI number which needs to be updated")
+      val currentEoriNumber = "GB223311111006"
+      val newEoriNumber = "GB223311111027"
+      val enrolment = Enrolment("HMRC-GVMS-ORG", currentEoriNumber)
+      EnrolmentStoreProxyStub.createEnrolments("90ccf333-65d2-4bf2-a008-01dfca70281", "00000123481", List(enrolment))
 
       When("User select Replace radio option and click on continue")
       CommonClass.selectRadioOption("Replace")
@@ -65,47 +66,51 @@ class EORIAutomation extends BaseSpec {
       CommonClass.onPageLabelValidation("What is the trader’s new EORI number?")
 
       And("User Enter current and new EORI details and continue")
-      ReplaceExistingEORINumber.replaceEORI(currentEORI, replaceEORI_day, replaceEORI_month, replaceEORI_year, newEORI)
+      ReplaceExistingEORINumber.replaceEORI(currentEoriNumber, establishmentDay, establishmentMonth, establishmentYear, newEoriNumber)
       CommonClass.clickContinueBtn
-      CommonClass.onPage("Review changes before replacing existing EORI number "+currentEORI+" with "+newEORI)
-      CommonClass.onPageObjectValidation("button","Confirm Changes")
-      CommonClass.onPageObjectValidation("a","Cancel changes and start again")
+      CommonClass.onPage("Review changes before replacing existing EORI number " + currentEoriNumber + " with " + newEoriNumber)
+      CommonClass.onPageObjectValidation("button", "Confirm Changes")
+      CommonClass.onPageObjectValidation("a", "Cancel changes and start again")
 
       And("User click on confirm")
       CommonClass.clickContinueBtn
 
       Then("Success Message should display")
-      CommonClass.successMessageValidation(currentEORI, newEORI)
+      CommonClass.successMessageValidation(currentEoriNumber, newEoriNumber)
     }
 
 
     Scenario("Cancel EORI number") {
 
       Given("User launches EORI toolkit homepage")
-      CommonClass.clickContinueBtn
+      CommonClass.loadPage
       CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
+
+      And("User has a EORI number which needs to be cancelled")
+      val eoriNumber = "GB111111111001"
+      val enrolment1 = Enrolment("HMRC-GVMS-ORG", eoriNumber)
+      val enrolment2 = Enrolment("HMRC-SS-ORG", eoriNumber)
+      EnrolmentStoreProxyStub.createEnrolments("90ccf333-65d2-4bf2-a008-01dfca70282", "00000123482", List(enrolment1, enrolment2))
 
       When("User selects Cancel journey and click Continue")
       CommonClass.selectRadioOption("Cancel")
       CommonClass.clickContinueBtn
 
-
       And("User Enter EORI details and continue")
       CommonClass.onPage("Cancel a trader’s subscriptions to HMRC services")
       CommonClass.onPageLabelValidation("What is the trader’s current EORI number?")
       CommonClass.onPage("What date was the trader established?")
-      ReplaceExistingEORINumber.cancelEORI(cancelEORI, cancelEORI_day, cancelEORI_month, cancelEORI_year)
+      ReplaceExistingEORINumber.cancelEORI(eoriNumber, establishmentDay, establishmentMonth, establishmentYear)
       CommonClass.clickContinueBtn
-      CommonClass.onPage("Review changes before cancelling subscriptions for EORI number "+cancelEORI)
-      CommonClass.onPageObjectValidation("button","Confirm Changes")
-      CommonClass.onPageObjectValidation("a","Cancel changes and start again")
+      CommonClass.onPage("Review changes before cancelling subscriptions for EORI number " + eoriNumber)
+      CommonClass.onPageObjectValidation("button", "Confirm Changes")
+      CommonClass.onPageObjectValidation("a", "Cancel changes and start again")
 
       And("User click on confirm")
       CommonClass.clickContinueBtn
 
       Then("Success Message should display")
-      CommonClass.cancelSucessMessageValidation(cancelEORI)
+      CommonClass.cancelSucessMessageValidation(eoriNumber)
     }
-
   }
 }
