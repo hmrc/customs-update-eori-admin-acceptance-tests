@@ -1,7 +1,10 @@
 
 
 # customs-update-eori-admin-acceptance-tests
-UI test suite for the `<digital service name>` using WebDriver and `<scalatest/cucumber>`.  
+UI test suite for the `EORI Toolkit` using WebDriver and `<scalatest/cucumber>`.  
+
+**'Jenkins Pipeline'** : 
+ https://build.tax.service.gov.uk/job/EORI/job/customs-update-eori-admin-frontend-acceptance-tests/
 
 ## Running the tests in local
 
