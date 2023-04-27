@@ -1,7 +1,10 @@
 
 
 # customs-update-eori-admin-acceptance-tests
-UI test suite for the `<digital service name>` using WebDriver and `<scalatest/cucumber>`.  
+UI test suite for the `EORI Toolkit` using WebDriver and `<scalatest/cucumber>`.  
+
+**'Jenkins Pipeline'** : 
+ https://build.tax.service.gov.uk/job/EORI/job/customs-update-eori-admin-frontend-acceptance-tests/
 
 ## Running the tests in local
 
@@ -68,41 +71,6 @@ For example, to execute the `run_tests.sh` script using Chrome remote-webdriver 
 
     ./run_tests.sh remote-chrome qa
 
-## Running ZAP tests
-
-ZAP tests can be automated using the HMRC Dynamic Application Security Testing approach. Running 
-automated ZAP tests should not be considered a substitute for manual exploratory testing using OWASP ZAP.
-
-#### Tagging tests for ZAP
-
-It is not required to proxy every journey test via ZAP. The intention of proxying a test through ZAP is to expose all the
- relevant pages of an application to ZAP. So tagging a subset of the journey tests or creating a 
- single ZAP focused journey test is sufficient.
-
-#### Configuring the browser to proxy via ZAP 
-
-Setting the system property `zap.proxy=true` configures the browser specified in `browser` property to proxy via ZAP. 
-This is achieved using [webdriver-factory](https://github.com/hmrc/webdriver-factory#proxying-trafic-via-zap).
-
-#### Executing a ZAP test
-
-The shell script `run_zap_tests.sh` is available to execute ZAP tests. The script proxies a set of journey tests, 
-tagged as `ZapTests`, via ZAP.  
-
-For example, to execute ZAP tests locally using a Chrome browser
-
-```
-./run_zap_test.sh chrome local
-```
-
-To execute ZAP tests locally using a remote-chrome browser
-
-```
-./run_browser_with_docker.sh remote-chrome 
-./run_zap_test.sh remote-chrome local
-``` 
-
-`./run_browser_with_docker.sh` is **NOT** required when running in a CI environment.
 
 ### Running tests using BrowserStack
 If you would like to run your tests via BrowserStack from your local development environment please refer to the [webdriver-factory](https://github.com/hmrc/webdriver-factory/blob/main/README.md/#user-content-running-tests-using-browser-stack) project.
@@ -144,6 +112,10 @@ Format all project files as follows:
 sbt scalafmtAll
 ```
 
+## ZAP Tests
+
+**There is no need for security testing as this is an internal service. Hence, ZAP tests are not applicable**
+
 ## License
 
 This code is open source software licensed under the [Apache 2.0 License]("http://www.apache.org/licenses/LICENSE-2.0.html").
@@ -158,3 +130,4 @@ $2 copy the utils.driver to local bin using command: cp /chromedriverlocation /u
 
 
 $3 to view that utils.driver in local bin using command: ls -al /usr/local/bin/ | grep chrome
+
