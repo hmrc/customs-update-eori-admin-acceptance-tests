@@ -75,6 +75,28 @@ object CommonClass extends BasePage {
     this
   }
 
+  def cancelErrorMessageValidation(EORI: String): this.type = {
+    if(driver.findElement(By.xpath("//h1[contains(text(),'Cancel subscriptions for " + EORI + "')] ")).isDisplayed) {
+      println("User is re-directed to valid page")
+      driver.findElement(By.xpath("//p[contains(text(),'The EORI number " + EORI + " does not have any subscriptions that can be cancelled.')] ")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(),'It is currently subscribed to the following subscriptions')] ")).isDisplayed
+    }
+    else
+      println("The page is not valid")
+    this
+  }
+
+  def replaceErrorMessageValidation(EORI: String): this.type = {
+    if (driver.findElement(By.xpath("//h1[contains(text(),'Cancel subscriptions for " + EORI + "')] ")).isDisplayed) {
+      println("User is re-directed to valid page")
+      driver.findElement(By.xpath("//p[contains(text(),'The EORI number " + EORI + " does not have any subscriptions that can be replaced.')] ")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(),'It is currently subscribed to the following subscriptions')] ")).isDisplayed
+    }
+    else
+      println("The page is not valid")
+    this
+  }
+
   def clickBackLink: this.type = {
     driver.findElement(By.xpath("//a[contains(text(), 'Back')]")).click()
     Thread.sleep(1000)
@@ -100,6 +122,12 @@ object CommonClass extends BasePage {
   def clickEORINumberMgntLink: this.type = {
     driver.findElement(By.className("hmrc-internal-header__link")).click()
     Thread.sleep(2000)
+    this
+  }
+
+  def clickEORIlink: this.type = {
+    driver.findElement(By.xpath("//a[contains(text(),'replace an existing EORI number or cancel subscriptions to HMRC services')]")).click()
+    Thread.sleep(1000)
     this
   }
 
