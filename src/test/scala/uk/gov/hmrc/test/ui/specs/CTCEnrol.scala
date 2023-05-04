@@ -32,14 +32,12 @@ class CTCEnrol extends BaseSpec {
       Given("User logs into EORI Toolkit homepage")
       CommonClass.loadPage
       CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
-      Thread.sleep(5000)
 
       And("User has a EORI number which needs to be updated")
       val currentEoriNumber = "GB223377777006"
       val newEoriNumber = "GB223377777007"
       val enrolment = Enrolment("HMRC-CTC-ORG", currentEoriNumber)
       EnrolmentStoreProxyStub.createEnrolments("90ccf333-65d2-4bf2-a008-01dfca70293", "00000123493", List(enrolment))
-      Thread.sleep(5000)
 
       When("User select Replace radio option and click on continue")
       CommonClass.selectRadioOption("Replace")
