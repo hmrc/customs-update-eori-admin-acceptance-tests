@@ -22,6 +22,8 @@ import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.selenium.WebBrowser
 import uk.gov.hmrc.test.ui.driver.BrowserDriver
+import uk.gov.hmrc.test.ui.pages.{CommonClass, StripeIDPLoginPage}
+import uk.gov.hmrc.test.ui.stubs.EnrolmentStoreProxyStub
 import uk.gov.hmrc.webdriver.SingletonDriver
 
 import scala.util.Try
@@ -35,8 +37,26 @@ trait BaseSpec
     with BrowserDriver
     with Eventually {
 
+  //---------Auth Login Details----------//
+  val pid = "12345"
+  val givenName = "Automation"
+  val surName = "Test"
+  val email = "abcdef@hmrc.com"
+  val roles = "update-enrolment-eori"
+
   sys.addShutdownHook {
     Try(SingletonDriver.closeInstance())
+  }
+
+  override def beforeAll() {
+    CommonClass.loadPage
+    StripeIDPLoginPage.loginStub(pid, givenName, surName, email, roles)
+    CommonClass.clickContinueBtn
+  }
+
+  override def afterAll() {
+    EnrolmentStoreProxyStub.cleanStubData()
+    CommonClass.clearCookies()
   }
 
   override def withFixture(test: NoArgTest): Outcome = {
