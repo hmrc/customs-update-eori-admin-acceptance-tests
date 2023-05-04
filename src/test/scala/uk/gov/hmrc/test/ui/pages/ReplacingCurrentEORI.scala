@@ -52,7 +52,6 @@ object ReplacingCurrentEORI extends BasePage {
     driver.findElement(By.xpath(No)).isDisplayed
     driver.findElement(By.xpath(confirmbtn)).click()
     println("confirm button is clicked")
-    Thread.sleep(3000)
     this
   }
 }

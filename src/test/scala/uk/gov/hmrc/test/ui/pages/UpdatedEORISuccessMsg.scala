@@ -25,7 +25,6 @@ object UpdatedEORISuccessMsg extends BasePage {
 
     driver.findElement(By.xpath(successmsg)).isDisplayed
     driver.findElement(By.xpath(replacedeori)).isDisplayed
-    Thread.sleep(6000)
     driver.findElement(By.xpath("//div[@class='govuk-notification-banner__header']")).isDisplayed
     this
   }
