@@ -29,35 +29,26 @@ object ReplaceExistingEORINumber extends BasePage {
   def replaceEORI(currentEORI:String,day:String,month:String,year:String,newEORI:String): this.type = {
     driver.findElement(By.id(ele_currentEORINumber)).clear()
     driver.findElement(By.id(ele_currentEORINumber)).sendKeys(currentEORI)
-    Thread.sleep(1000)
     driver.findElement(By.id(ele_day)).clear()
     driver.findElement(By.id(ele_day)).sendKeys(day)
-    Thread.sleep(1000)
     driver.findElement(By.id(elem_month)).clear()
     driver.findElement(By.id(elem_month)).sendKeys(month)
-    Thread.sleep(1000)
     driver.findElement(By.id(elem_year)).clear()
     driver.findElement(By.id(elem_year)).sendKeys(year)
-    Thread.sleep(1000)
     driver.findElement(By.id(ele_newEORInumber)).clear()
     driver.findElement(By.id(ele_newEORInumber)).sendKeys(newEORI)
-    Thread.sleep(1000)
 
     this
   }
   def cancelEORI(currentEORI:String,day:String,month:String,year:String): this.type = {
     driver.findElement(By.id(ele_currentEORINumber)).clear()
     driver.findElement(By.id(ele_currentEORINumber)).sendKeys(currentEORI)
-    Thread.sleep(1000)
     driver.findElement(By.id(ele_day)).clear()
     driver.findElement(By.id(ele_day)).sendKeys(day)
-    Thread.sleep(1000)
     driver.findElement(By.id(elem_month)).clear()
     driver.findElement(By.id(elem_month)).sendKeys(month)
-    Thread.sleep(1000)
     driver.findElement(By.id(elem_year)).clear()
     driver.findElement(By.id(elem_year)).sendKeys(year)
-    Thread.sleep(1000)
 
     this
   }
