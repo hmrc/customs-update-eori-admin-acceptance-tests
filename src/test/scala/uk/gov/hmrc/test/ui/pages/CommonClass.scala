@@ -19,6 +19,9 @@ package uk.gov.hmrc.test.ui.pages
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.{By, WebDriver}
 import uk.gov.hmrc.webdriver.SingletonDriver
+import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
+import org.openqa.selenium.{By, Keys, WebElement}
+
 
 object CommonClass extends BasePage {
 
@@ -28,6 +31,11 @@ object CommonClass extends BasePage {
     implicit lazy val driver: WebDriver = SingletonDriver.getInstance(Some(options))
     driver.navigate().to(url)
     driver.manage().window().maximize()
+    this
+  }
+
+  def clearCookies() : this.type = {
+    driver.manage().deleteAllCookies()
     this
   }
 
@@ -75,38 +83,60 @@ object CommonClass extends BasePage {
     this
   }
 
+  def cancelErrorMessageValidation(EORI: String): this.type = {
+    if(driver.findElement(By.xpath("//h1[contains(text(),'Cancel subscriptions for " + EORI + "')] ")).isDisplayed) {
+      println("User is re-directed to valid page")
+      driver.findElement(By.xpath("//p[contains(text(),'The EORI number " + EORI + " does not have any subscriptions that can be cancelled.')] ")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(),'It is currently subscribed to the following subscriptions')] ")).isDisplayed
+    }
+    else
+      println("The page is not valid")
+    this
+  }
+
+  def replaceErrorMessageValidation(EORI: String): this.type = {
+    if (driver.findElement(By.xpath("//h1[contains(text(),'Replacing existing EORI number " + EORI + "')] ")).isDisplayed) {
+      println("User is re-directed to valid page")
+      driver.findElement(By.xpath("//p[contains(text(),'The EORI number " + EORI + " does not have any subscriptions that can be replaced.')] ")).isDisplayed
+      driver.findElement(By.xpath("//p[contains(text(),'It is currently subscribed to the following subscriptions')] ")).isDisplayed
+    }
+    else
+      println("The page is not valid")
+    this
+  }
+
   def clickBackLink: this.type = {
     driver.findElement(By.xpath("//a[contains(text(), 'Back')]")).click()
-    Thread.sleep(1000)
     this
   }
 
   def selectRadioOption(radioOption: String): this.type = {
     radioOption match {
       case "Cancel" => driver.findElement(By.id("update-or-cancel-eori-2")).click()
-        Thread.sleep(1000)
       case _ => driver.findElement(By.id("update-or-cancel-eori")).click()
-        Thread.sleep(1000)
     }
     this
   }
 
+
   def clickContinueBtn: this.type = {
     driver.findElement(By.className("govuk-button")).click()
-    Thread.sleep(2000)
     this
   }
 
   def clickEORINumberMgntLink: this.type = {
     driver.findElement(By.className("hmrc-internal-header__link")).click()
-    Thread.sleep(2000)
+    this
+  }
+
+  def clickEORIlink: this.type = {
+    driver.findElement(By.xpath("//a[contains(text(),'replace an existing EORI number or cancel subscriptions to HMRC services')]")).click()
     this
   }
 
   def errorMessageValidation(errormsg: String): this.type = {
     if (driver.findElement(By.xpath("//a[contains(text(),'" + errormsg + "')]")).isDisplayed) {
       println("Error message displayed -- " + errormsg)
-      Thread.sleep(1000)
     } else
       println("The page is not valid")
     this
