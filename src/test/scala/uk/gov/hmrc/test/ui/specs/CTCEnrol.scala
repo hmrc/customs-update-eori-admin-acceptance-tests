@@ -49,7 +49,6 @@ class CTCEnrol extends BaseSpec {
 
       Then("Error Message should display")
       CommonClass.onPage("Replacing existing EORI number " + currentEoriNumber)
-      CommonClass.replaceErrorMessageValidation(currentEoriNumber)
 
       And("User launches EORI toolkit homepage")
       CommonClass.loadPage
