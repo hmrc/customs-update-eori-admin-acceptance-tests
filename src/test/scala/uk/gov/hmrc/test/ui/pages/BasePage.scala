@@ -20,6 +20,7 @@ import org.openqa.selenium.By
 import org.scalatest.matchers.should.Matchers
 import uk.gov.hmrc.test.ui.conf.TestConfiguration
 import uk.gov.hmrc.test.ui.driver.BrowserDriver
+import org.scalatest.Tag
 
 trait BasePage extends BrowserDriver with Matchers {
   val continueButton = "//button[@class='govuk-button']"
@@ -28,5 +29,9 @@ trait BasePage extends BrowserDriver with Matchers {
   def submitPage(): Unit =
     driver.findElement(By.className(continueButton)).click()
 }
+
+
+
+object AccessibilityTag extends Tag("a11y")
 
 case class PageNotFoundException(s: String) extends Exception(s)
