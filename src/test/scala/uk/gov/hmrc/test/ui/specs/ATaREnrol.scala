@@ -28,7 +28,7 @@ class ATaREnrol extends BaseSpec {
   Feature("EORI Automation Scenarios-ATaR") {
 
 
-    Scenario("Replace and Cancel EORI number- ATaR") {
+    Scenario("Replace and Cancel EORI number- ATaR", AccessibilityTag) {
 
       Given("User logs into EORI Toolkit homepage")
       CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
