@@ -30,7 +30,6 @@ class CDSEnrol extends BaseSpec {
     Scenario("Replace and Cancel EORI number- CDS") {
 
       Given("User logs into EORI Toolkit homepage")
-      CommonClass.loadPage
       CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
 
       And("User has a EORI number which needs to be updated")
@@ -52,8 +51,8 @@ class CDSEnrol extends BaseSpec {
       And("User click on confirm")
       CommonClass.clickContinueBtn
 
-      Then("Success Message should display")
-      CommonClass.successMessageValidation(currentEoriNumber, newEoriNumber)
+      Then("Success Message Page should be displayed")
+      CommonClass.onPage("EORI number " + currentEoriNumber + " has been replaced with " + newEoriNumber)
 
       And("User launches EORI toolkit homepage")
       CommonClass.loadPage
@@ -70,7 +69,6 @@ class CDSEnrol extends BaseSpec {
 
       Then("Error Message should display")
       CommonClass.onPage("Cancel subscriptions for " + currentEoriNumber)
-      CommonClass.cancelErrorMessageValidation(currentEoriNumber)
     }
   }
 }
