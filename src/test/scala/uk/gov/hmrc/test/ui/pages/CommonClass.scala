@@ -34,7 +34,7 @@ object CommonClass extends BasePage {
     this
   }
 
-  def clearCookies() : this.type = {
+  def clearCookies(): this.type = {
     driver.manage().deleteAllCookies()
     this
   }
@@ -57,31 +57,6 @@ object CommonClass extends BasePage {
       println(objectType + " displayed - " + objectText)
   }
 
-  def successMessageValidation(oldEORI: String, newEORI: String): this.type = {
-    if (driver.findElement(By.xpath("//h1[contains(text(),'EORI number " + oldEORI + " has been replaced with " + newEORI + "')]")).isDisplayed) {
-      println("User is re-directed to valid page")
-      driver.findElement(By.xpath("//p[contains(text(), 'New EORI number " + newEORI + " is now subscribed to:')]")).isDisplayed
-      driver.findElement(By.xpath("//p[contains(text(),'What happens next')]")).isDisplayed
-      driver.findElement(By.xpath("//p[contains(text(), 'You will need to email the trader to confirm which subscriptions have been successfully updated with their new EORI number.')]")).isDisplayed
-      driver.findElement(By.xpath("//p[contains(text(),'You can get help with your email in the guidance.')]")).isDisplayed
-      driver.findElement(By.xpath("//button[contains(text(),'Start again')]")).isDisplayed
-    } else
-      println("The page is not valid")
-    this
-  }
-
-  def cancelSucessMessageValidation(EORI: String): this.type = {
-    if (driver.findElement(By.xpath("//h1[contains(text(),'Subscriptions cancelled for " + EORI + "')]")).isDisplayed) {
-      println("User is re-directed to valid page")
-      driver.findElement(By.xpath("//p[contains(text(), 'EORI number " + EORI + " subscriptions have been successfully cancelled for:')]")).isDisplayed
-      driver.findElement(By.xpath("//p[contains(text(),'What happens next')]")).isDisplayed
-      driver.findElement(By.xpath("//p[contains(text(), 'You will need to email the trader to confirm which EORI number " + EORI + " subscriptions have been successfully cancelled.')]")).isDisplayed
-      driver.findElement(By.xpath("//p[contains(text(),'You can get help with your email in the guidance.')]")).isDisplayed
-      driver.findElement(By.xpath("//button[contains(text(),'Start again')]")).isDisplayed
-    } else
-      println("The page is not valid")
-    this
-  }
 
   def clickBackLink: this.type = {
     driver.findElement(By.xpath("//a[contains(text(), 'Back')]")).click()
@@ -109,14 +84,6 @@ object CommonClass extends BasePage {
 
   def clickEORIlink: this.type = {
     driver.findElement(By.xpath("//a[contains(text(),'replace an existing EORI number or cancel subscriptions to HMRC services')]")).click()
-    this
-  }
-
-  def errorMessageValidation(errormsg: String): this.type = {
-    if (driver.findElement(By.xpath("//a[contains(text(),'" + errormsg + "')]")).isDisplayed) {
-      println("Error message displayed -- " + errormsg)
-    } else
-      println("The page is not valid")
     this
   }
 }

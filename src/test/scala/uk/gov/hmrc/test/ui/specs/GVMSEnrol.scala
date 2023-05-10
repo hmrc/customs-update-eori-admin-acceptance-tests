@@ -51,8 +51,8 @@ class GVMSEnrol extends BaseSpec {
       And("User click on confirm")
       CommonClass.clickContinueBtn
 
-      Then("Success Message should display")
-      CommonClass.successMessageValidation(currentEoriNumber, newEoriNumber)
+      Then("Success Message Page should be displayed")
+      CommonClass.onPage("EORI number " + currentEoriNumber + " has been replaced with " + newEoriNumber)
 
       And("User launches EORI toolkit homepage")
       CommonClass.loadPage
@@ -70,8 +70,8 @@ class GVMSEnrol extends BaseSpec {
       And("User click on confirm")
       CommonClass.clickContinueBtn
 
-      Then("Success Message should display")
-      CommonClass.cancelSucessMessageValidation(currentEoriNumber)
+      Then("Success Message Page should be displayed")
+      CommonClass.onPage("Subscriptions cancelled for " + currentEoriNumber)
     }
 
   }
