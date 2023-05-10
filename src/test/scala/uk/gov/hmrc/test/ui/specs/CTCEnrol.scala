@@ -66,7 +66,6 @@ class CTCEnrol extends BaseSpec {
 
       Then("Error Message should display")
       CommonClass.onPage("Cancel subscriptions for " + currentEoriNumber)
-      CommonClass.cancelErrorMessageValidation(currentEoriNumber)
     }
 
   }

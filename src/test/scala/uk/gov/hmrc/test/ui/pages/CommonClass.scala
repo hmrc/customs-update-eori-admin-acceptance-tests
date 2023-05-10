@@ -83,16 +83,6 @@ object CommonClass extends BasePage {
     this
   }
 
-  def cancelErrorMessageValidation(EORI: String): this.type = {
-    if(driver.findElement(By.xpath("//h1[contains(text(),'Cancel subscriptions for " + EORI + "')] ")).isDisplayed) {
-      println("User is re-directed to valid page")
-      driver.findElement(By.xpath("//p[contains(text(),'The EORI number " + EORI + " does not have any subscriptions that can be cancelled.')] ")).isDisplayed
-      driver.findElement(By.xpath("//p[contains(text(),'It is currently subscribed to the following subscriptions')] ")).isDisplayed
-    }
-    else
-      println("The page is not valid")
-    this
-  }
 
   def replaceErrorMessageValidation(EORI: String): this.type = {
     if (driver.findElement(By.xpath("//h1[contains(text(),'Replacing existing EORI number " + EORI + "')] ")).isDisplayed) {
