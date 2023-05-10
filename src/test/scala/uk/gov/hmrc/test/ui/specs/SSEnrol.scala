@@ -30,7 +30,6 @@ class SSEnrol extends BaseSpec {
     Scenario("Replace and Cancel EORI number- GB S&S") {
 
       Given("User logs into EORI Toolkit homepage")
-      CommonClass.loadPage
       CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
 
       And("User has a EORI number which needs to be updated")
