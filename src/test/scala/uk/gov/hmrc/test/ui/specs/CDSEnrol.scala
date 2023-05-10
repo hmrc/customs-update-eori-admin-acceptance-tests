@@ -27,7 +27,7 @@ class CDSEnrol extends BaseSpec {
 
   Feature("EORI Automation Scenarios-CDS") {
 
-    Scenario("Replace and Cancel EORI number- CDS", AccessibilityTag) {
+    Scenario("Replace and Cancel EORI number- CDS") {
 
       Given("User logs into EORI Toolkit homepage")
       CommonClass.onPage("Do you want to replace an existing EORI number or cancel subscriptions to HMRC services?")
