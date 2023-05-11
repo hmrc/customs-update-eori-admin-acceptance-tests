@@ -111,6 +111,10 @@ Format all project files as follows:
 ```bash
 sbt scalafmtAll
 ```
+## Run accessibility tests locally
+Acessibility tests have been marked with AccessibilityTag . Use the below bash script to run tests locally
+
+    ./run_a11y_tests.sh
 
 ## ZAP Tests
 
