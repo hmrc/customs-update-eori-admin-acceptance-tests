@@ -38,11 +38,11 @@ trait BaseSpec
     with Eventually {
 
   //---------Auth Login Details----------//
-  val pid = "12345"
+  val pid       = "12345"
   val givenName = "Automation"
-  val surName = "Test"
-  val email = "abcdef@hmrc.com"
-  val roles = "update-enrolment-eori"
+  val surName   = "Test"
+  val email     = "abcdef@hmrc.com"
+  val roles     = "update-enrolment-eori"
 
   sys.addShutdownHook {
     Try(SingletonDriver.closeInstance())
@@ -52,6 +52,7 @@ trait BaseSpec
     CommonClass.loadPage
     StripeIDPLoginPage.loginStub(pid, givenName, surName, email, roles)
     CommonClass.clickContinueBtn
+    CommonClass.loadPage //this step is for environment testing to load page again after calling stride-demo-frontend
   }
 
   override def afterAll() {
