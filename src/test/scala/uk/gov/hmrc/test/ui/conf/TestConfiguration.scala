@@ -28,8 +28,7 @@ object TestConfiguration {
     val host = env match {
       case "local" => s"$environmentHost:${servicePort(service)}"
       case "pid"   => s"${envConfig.getString(s"services.pid")}"
-      case _       => s"${envConfig.getString(s"services.host")}"
-
+      case _       => s"${envConfig.getString(s"services.$service.host")}"
     }
     s"$host${serviceRoute(service)}"
   }
