@@ -16,17 +16,9 @@
 
 package uk.gov.hmrc.test.ui.pages
 
-import org.openqa.selenium.support.ui.WebDriverWait
-import org.openqa.selenium.{By, WebDriver}
-
-
-import java.util.concurrent.TimeUnit
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{Await, Future}
-import scala.concurrent.duration.{Duration, SECONDS}
+import org.openqa.selenium.By
 
 object StripeIDPLoginPage extends BasePage {
-  //val url: String     = TestConfiguration.url("example-frontend")
 
   val ele_pid           = "pid"
   val ele_givenName     = "usersGivenName"
