@@ -18,9 +18,6 @@ package uk.gov.hmrc.test.ui.pages
 
 import org.openqa.selenium.By
 
-/*
-@Latha
- */
 object ReplacingCurrentEORI extends BasePage {
 
   val ReplacingEori       = "//h1[@class='govuk-heading-l']"

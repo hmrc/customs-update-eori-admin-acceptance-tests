@@ -22,19 +22,18 @@ import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.selenium.WebBrowser
 import uk.gov.hmrc.test.ui.driver.BrowserDriver
+import uk.gov.hmrc.selenium.webdriver.Browser
 import uk.gov.hmrc.test.ui.pages.{CommonClass, StripeIDPLoginPage}
 import uk.gov.hmrc.test.ui.stubs.EnrolmentStoreProxyStub
-import uk.gov.hmrc.webdriver.SingletonDriver
-
-import scala.util.Try
 
 trait BaseSpec
     extends AnyFeatureSpec
     with GivenWhenThen
-    with BeforeAndAfterAll
+    with BeforeAndAfterEach
     with Matchers
     with WebBrowser
     with BrowserDriver
+    with Browser
     with Eventually {
 
   //---------Auth Login Details----------//
@@ -44,20 +43,18 @@ trait BaseSpec
   val email     = "abcdef@hmrc.com"
   val roles     = "update-enrolment-eori"
 
-  sys.addShutdownHook {
-    Try(SingletonDriver.closeInstance())
-  }
-
-  override def beforeAll() {
+  override def beforeEach() {
+    startBrowser()
     CommonClass.loadPage
     StripeIDPLoginPage.loginStub(pid, givenName, surName, email, roles)
     CommonClass.clickContinueBtn
     CommonClass.loadPage //this step is for environment testing to load page again after calling stride-demo-frontend
   }
 
-  override def afterAll() {
+  override def afterEach() {
     EnrolmentStoreProxyStub.cleanStubData()
     CommonClass.clearCookies()
+    quitBrowser()
   }
 
   override def withFixture(test: NoArgTest): Outcome = {

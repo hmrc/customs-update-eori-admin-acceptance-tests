@@ -16,20 +16,12 @@
 
 package uk.gov.hmrc.test.ui.pages
 
-import org.openqa.selenium.chrome.ChromeOptions
-import org.openqa.selenium.{By, WebDriver}
-import uk.gov.hmrc.webdriver.SingletonDriver
-import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
-import org.openqa.selenium.{By, Keys, WebElement}
-
+import org.openqa.selenium.By
 
 object CommonClass extends BasePage {
 
   def loadPage: this.type = {
-    val options = new ChromeOptions
-    implicit lazy val driver: WebDriver = SingletonDriver.getInstance(Some(options))
     driver.navigate().to(url)
-    driver.manage().window().maximize()
     this
   }
 
