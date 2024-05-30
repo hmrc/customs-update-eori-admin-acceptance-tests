@@ -1,0 +1,8 @@
+{
+  "exclusions": [
+    {
+      "path": "/stride-idp-stub",
+      "reason": "Stubbed stride idp endpoints are owned by a different team."
+    }
+  ]
+}
