@@ -1,5 +1,3 @@
-
-
 # customs-update-eori-admin-acceptance-tests
 UI test suite for the `EORI Toolkit` using UITestRunner and `<scalatest>`.  
 
@@ -26,12 +24,6 @@ Start `CUSTOMS_UPDATE_EORI_ADMIN_FRONTEND_ALL` services locally as follows:
 ```bash
 sm2 --start CUSTOMS_UPDATE_EORI_ADMIN_FRONTEND_ALL
 ```
-
-### Selenium Grid
-
-Confirm that [docker-selenium-grid](https://github.com/hmrc/docker-selenium-grid) is up-to-date and follow the provided [instructions](https://github.com/hmrc/docker-selenium-grid/blob/main/README.md).
-
-or use [local-selenium-grid](https://github.com/hmrc/local-selenium-grid) and follow the provided [instructions](https://github.com/hmrc/local-selenium-grid/blob/main/README.md).
 
 ## Tests
 
