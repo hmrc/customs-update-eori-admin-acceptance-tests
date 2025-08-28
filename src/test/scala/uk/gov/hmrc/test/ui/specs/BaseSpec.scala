@@ -48,7 +48,6 @@ trait BaseSpec
     CommonClass.loadPage
     StripeIDPLoginPage.loginStub(pid, givenName, surName, email, roles)
     CommonClass.clickContinueBtn
-    CommonClass.loadPage //this step is for environment testing to load page again after calling stride-demo-frontend
   }
 
   override def afterEach() {
