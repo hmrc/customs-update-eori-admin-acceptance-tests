@@ -27,7 +27,7 @@ object EnrolmentStoreProxyStub extends TestClient with Matchers {
     enrolments.foreach(insertKnownFacts)
     insertEnrolment(groupId, userId, enrolments)
   }
-  private def insertKnownFacts(enrolment: Enrolment) {
+  private def insertKnownFacts(enrolment: Enrolment): Unit = {
     val req: String =
       s"""
          |{
@@ -49,7 +49,7 @@ object EnrolmentStoreProxyStub extends TestClient with Matchers {
     val result = postRequest(s"$url/known-facts", req)
     result.code shouldBe StatusCode.Created
   }
-  private def insertEnrolment(groupId: String, userId: String, enrolments: List[Enrolment]) {
+  private def insertEnrolment(groupId: String, userId: String, enrolments: List[Enrolment]): Unit = {
     val startKnownFacts: String =
       s"""
          |{
@@ -97,12 +97,12 @@ object EnrolmentStoreProxyStub extends TestClient with Matchers {
     deleteEnrolmentKnownFacts()
   }
 
-  private def deleteEnrolmentsData() {
+  private def deleteEnrolmentsData(): Unit = {
     val result = deleteRequest(s"$url/data")
     result.code shouldBe StatusCode.NoContent
   }
 
-  private def deleteEnrolmentKnownFacts() {
+  private def deleteEnrolmentKnownFacts(): Unit = {
     val result = deleteRequest(s"$url/known-facts")
     result.code shouldBe StatusCode.NoContent
   }

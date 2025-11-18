@@ -3,7 +3,7 @@ lazy val testSuite = (project in file("."))
   .settings(
     name := "customs-update-eori-admin-acceptance-tests",
     version := "0.1.0",
-    scalaVersion := "2.13.16",
+    scalaVersion := "3.3.6",
     scalacOptions ++= Seq("-feature"),
     libraryDependencies ++= Dependencies.test
   )

@@ -43,14 +43,14 @@ trait BaseSpec
   val email     = "abcdef@hmrc.com"
   val roles     = "update-enrolment-eori"
 
-  override def beforeEach() {
+  override def beforeEach(): Unit = {
     startBrowser()
     CommonClass.loadPage
     StripeIDPLoginPage.loginStub(pid, givenName, surName, email, roles)
     CommonClass.clickContinueBtn
   }
 
-  override def afterEach() {
+  override def afterEach(): Unit = {
     EnrolmentStoreProxyStub.cleanStubData()
     CommonClass.clearCookies()
     quitBrowser()
