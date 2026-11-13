@@ -1,0 +1,13 @@
+{
+  "add": [
+    {
+      "reason": "Served by stride-idp-stub, outside our scope.",
+      "contextId": 1,
+      "url": "^http://localhost:9043/stride-idp-stub/.*$",
+      "urlIsRegex": "true",
+      "ruleId": 10202,
+      "newLevel": -1
+    }
+  ],
+  "remove": []
+}
